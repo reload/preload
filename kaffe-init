@@ -24,7 +24,7 @@ then
 fi
 
 # Copy the make file to the drupal-to-be root.
-cp $KAFFE_DIR/kaffe.make .
+cp $KAFFE_DIR/resources/kaffe.make .
 
 # Run the make file this once like God intended make files to be run.
 drush make kaffe.make . --contrib-destination=sites/all/modules/contrib
@@ -63,3 +63,6 @@ echo "Copied initial settings."
 sudo chown -R  $(whoami):$webserver_user sites/default
 chmod -R g+rw sites/default
 echo "Set up files folder and file rights."
+
+cp $KAFFE_DIR/resources/circle/circle.yml .
+cp $KAFFE_DIR/resources/git/gitignore .gitignore
