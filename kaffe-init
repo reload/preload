@@ -66,3 +66,6 @@ echo "Set up files folder and file rights."
 
 cp $KAFFE_DIR/resources/circle/circle.yml .
 cp $KAFFE_DIR/resources/git/gitignore .gitignore
+
+mkdir -p sites/all/modules/reload
+cp $KAFFE_DIR/resources/modules/f5 sites/all/modules/reload/
