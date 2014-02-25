@@ -23,8 +23,8 @@ then
   echo "webserver_user=$webserver_user" >> ~/.lav-kaffe
 fi
 
-# Copy the make file one dir up.
-cp $KAFFE_DIR/kaffe.make ../
+# Copy the make file to the drupal-to-be root.
+cp $KAFFE_DIR/kaffe.make .
 
 # Run the make file this once like God intended make files to be run.
 drush make kaffe.make . --contrib-destination=sites/all/modules/contrib
