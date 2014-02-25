@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# Get the name of the site.
+echo "What is the site name? "
+read site_name
+
+if [ -z "$site_name" ]
+then
+  echo "Site name cannot be empty."
+fi
+
+# Remove whitespace and concatenate the email into the format:
+# info+sitename@reload.dk. Also make a feeble attempt to get rid of "non-email"
+# characters.
+site_email=${site_name/ /}
+site_email=info+${site_email/[æøåÆØÅ]/}@reload.dk
+
+echo "\$conf['site_name'] = '$site_name';" >> sites/default/common.settings.php
+
+echo "Now enter the url to your database (fx. mysql://username:pass@localhost:3306/kaffe): "
+read db_url
+
+if [ -z "$db_url" ]
+then
+  echo "Database url cannot be empty."
+fi
+
+# Now install the site.
+drush site-install minimal --locale=da --site-name="$site_name" --account-mail=$site_email --account-name=$KAFFE_D_USER --account-pass=$KAFFE_D_PWD --db-url=$db_url
+
+# Run some code via drush.
+drush scr $KAFFE_DIR/resources/scripts/user_roles.drush.php
+drush scr $KAFFE_DIR/resources/scripts/filter_formats.drush.php
+drush scr $KAFFE_DIR/resources/scripts/vars.drush.php
+
+# Enable core modules we want.
+drush en -y block contextual image list menu number options path taxonomy dblog toolbar field_ui file rdf
+# Enable admin theme.
+drush en -y seven
+# Get rid of silly blocks for seven
+drush sql-query "UPDATE block SET region = '-1' WHERE theme = 'seven' AND delta IN('login', 'navigation', 'management')"
+# Enable contrib modules - do it in two rounds to avoid timeouts.
+drush en -y ctools admin_views date ds_extras ds_ui entity entityreference environment_indicator features field_group globalredirect
+drush en -y i18n l10n_update libraries pathauto strongarm token transliteration views views_bulk_operations xmlsitemap_node xmlsitemap_taxonomy

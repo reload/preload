@@ -1,0 +1,39 @@
+#!/bin/sh
+
+export KAFFE_DIR=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+
+
+usage() {
+  echo "usage: kaffe-bullet <subcommand>"
+  echo
+  echo "Available subcommands are:"
+  echo "   init      Start your project."
+  echo
+  echo "Try 'kaffe <subcommand> help' for details."
+}
+
+main() {
+  # We want at least one arugment.
+  if [ $# -lt 1 ]; then
+    usage
+    exit 1
+  fi
+
+    # load common functionality
+  . "$KAFFE_DIR/kaffe-common"
+
+  # Get the sub command.
+  SUBCOMMAND="$1"; shift
+
+  # If we don't have the command, then display usage.
+  if [ ! -e "$KAFFE_DIR/kaffe-$SUBCOMMAND" ]; then
+    usage
+    exit 1
+  fi
+
+    # Run command
+  . "$KAFFE_DIR/kaffe-$SUBCOMMAND"
+
+}
+
+main "$@"
