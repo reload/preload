@@ -12,35 +12,22 @@ dependencies:
     # Install Drush.
     - composer --prefer-source --no-interaction global require drush/drush:6.2.0
     - mkdir ~/.drush
-    # Install Drush plugins we need.
     - drush dl drush_drake
-    - drush dl drush_situs
-    # As coder is a module too, we have to do it like this to install
-    # it into .drush.
     - cd ~/.drush && drush dl coder
-    # Clone drake_ci and drake_reload. Needed for building.
     - git clone git@github.com:reload/drake_ci.git ~/.drush/drake_ci
-    - git clone git@github.com:reload/drake_reload.git ~/.drush/drake_reload
-    # Link Drupal phpcs standard in from Coder module.
-    - ln -sv ~/.drush/coder/coder_sniffer/Drupal $(pear config-get php_dir)/PHP/CodeSniffer/Standards/Drupal
-    # Install phpmd
-    -  pear channel-discover pear.phpmd.org
-    - pear install --alldeps phpmd/PHP_PMD
     # Install csslint.
     - npm install -g csslint
-    # Install jshint
+    # Install jshint.
     - npm install -g jshint
     # Hotwire sendmail so PHP will think the mails are sendt.
     - echo "sendmail_path = /bin/true" > ~/.phpenv/versions/$(phpenv global)/etc/conf.d/sendmail.ini
 
 test:
   override:
-    # Only run the basic tasks. The output of phpcs et all isn't shown
-    # anyway.
-    - cd site && drush --nocolor drake php-lint
-    - cd site && drush --nocolor drake php-debug
-    - cd site && drush --nocolor drake check-js
-    - cd site && drush --nocolor drake check-css
-    # Move the modules to sites/all where they can be found even in
-    # the testing profile.
-    - cd site && drush --nocolor drake run-tests
+    # Run basic tests.
+    - drush --nocolor drake php-lint
+    - drush --nocolor drake php-debug
+    - drush --nocolor drake check-js
+    - drush --nocolor drake check-css
+    # Run Drupal's simpletests and unittest (if any).
+    - drush --nocolor drake run-tests
