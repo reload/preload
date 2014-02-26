@@ -1,71 +1,95 @@
 #!/bin/sh
 
-# Get the webserver user.
-# If the user name is not in the settings file, then ask for the user.
-if [ -z "$webserver_user" ]
-then
-  case $( uname -s ) in
-    # Mac? Probably _www
-    Darwin) webserver_user='_www';;
-    # Other? Hmm. Try this.
-    *)     webserver_user='www-data';;
-  esac
+cmd_default() {
+  get_web_server_user
+  do_make
+  write_settings_files
+  setup_files_dir_and_rights
+  copy_conf_files
+  copy_modules
+}
 
-  while true; do
-      read -p "Is the name of your web server user $webserver_user? " yn
-      case $yn in
-          [Yy]* ) break;;
-          [Nn]* ) echo "Please enter the name of the web server user on this machine: ";read webserver_user;break;;
-          * ) echo "Please answer yes or no.";;
-      esac
-  done
-  # Save the web server user to the settings file.
-  echo "webserver_user=$webserver_user" >> ~/.lav-kaffe
-fi
+get_web_server_user() {
 
-# Copy the make file to the drupal-to-be root.
-cp $KAFFE_DIR/resources/kaffe.make .
+  # Get the webserver user.
+  # If the user name is not in the settings file, then ask for the user.
+  if [ -z "$webserver_user" ]
+  then
+    case $( uname -s ) in
+      # Mac? Probably _www
+      Darwin) webserver_user='_www';;
+      # Other? Hmm. Try this.
+      *)     webserver_user='www-data';;
+    esac
 
-# Run the make file this once like God intended make files to be run.
-drush make kaffe.make . --contrib-destination=sites/all/modules/contrib
-echo "Downloaded basic modules."
+    while true; do
+        read -p "Is the name of your web server user $webserver_user? " yn
+        case $yn in
+            [Yy]* ) break;;
+            [Nn]* ) echo "Please enter the name of the web server user on this machine: ";read webserver_user;break;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+    # Save the web server user to the settings file.
+    echo "webserver_user=$webserver_user" >> ~/.lav-kaffe
+  fi
+}
 
-# Get Drupal version number so we can download a translation.
-drupal_version=`grep --max-count=1 Drupal CHANGELOG.txt | sed 's/Drupal\ \([0-9]\.[0-9]*\).*$/\1/'`
-# Now download it.
-curl "http://ftp.drupal.org/files/translations/7.x/drupal/drupal-${drupal_version}.da.po" -o profiles/minimal/translations/drupal-${drupal_version}.da.po
-echo "Downloaded translations."
+do_make() {
+  # Copy the make file to the drupal-to-be root.
+  cp $KAFFE_DIR/resources/kaffe.make .
 
-# Make the folder and copy stuff into it.
-mkdir -p sites/default/files
+  # Run the make file this once like God intended make files to be run.
+  drush make kaffe.make . --contrib-destination=sites/all/modules/contrib
+  echo "Downloaded basic modules."
 
-# Do some file juggling to prepend inclusion of our settings files to the
-# default.settings.php. The reason we don't just write to settings.php is that
-# when drupal is installed the file will be overwritten with
-# default.settings.php
+  # Get Drupal version number so we can download a translation.
+  drupal_version=`grep --max-count=1 Drupal CHANGELOG.txt | sed 's/Drupal\ \([0-9]\.[0-9]*\).*$/\1/'`
+  # Now download it.
+  curl "http://ftp.drupal.org/files/translations/7.x/drupal/drupal-${drupal_version}.da.po" -o profiles/minimal/translations/drupal-${drupal_version}.da.po
+  echo "Downloaded translations."
+}
+
+write_settings_files() {
+  # Do some file juggling to prepend inclusion of our settings files to the
+  # default.settings.php. The reason we don't just write to settings.php is that
+  # when drupal is installed the file will be overwritten with
+  # default.settings.php
 cat <<- EOF > temp.txt
-<?php
+  <?php
 
-require_once('common.settings.php');
-require_once('dev.settings.php');
+  // Include our settings. Comment out dev on relevant platforms, but always leave
+  // common.
+  require_once('common.settings.php');
+  require_once('dev.settings.php');
 EOF
-tail -n +2 sites/default/default.settings.php >> temp.txt
-cp temp.txt sites/default/default.settings.php
-rm temp.txt
-cp sites/default/default.settings.php sites/default/settings.php
+  tail -n +2 sites/default/default.settings.php >> temp.txt
+  cp temp.txt sites/default/default.settings.php
+  rm temp.txt
+  cp sites/default/default.settings.php sites/default/settings.php
 
-# Copy our settings files.
-cp "$KAFFE_DIR/resources/settings/common.settings.php" sites/default/
-cp "$KAFFE_DIR/resources/settings/dev.settings.php" sites/default/
-echo "Copied initial settings."
+  # Copy our settings files.
+  cp "$KAFFE_DIR/resources/settings/common.settings.php" sites/default/
+  cp "$KAFFE_DIR/resources/settings/dev.settings.php" sites/default/
+  echo "Copied initial settings."
+}
 
-# Set file rights.
-sudo chown -R  $(whoami):$webserver_user sites/default
-chmod -R g+rw sites/default
-echo "Set up files folder and file rights."
+setup_files_dir_and_rights() {
+  # Make the files directory.
+  mkdir -p sites/default/files
+  # Set file rights.
+  sudo chown -R  $(whoami):$webserver_user sites/default
+  chmod -R g+rw sites/default
+  echo "Set up files folder and file rights."
+}
 
-cp $KAFFE_DIR/resources/circle/circle.yml .
-cp $KAFFE_DIR/resources/git/gitignore .gitignore
+copy_conf_files() {
+  cp $KAFFE_DIR/resources/circle/circle.yml .
+  cp $KAFFE_DIR/resources/git/gitignore .gitignore
+  cp $KAFFE_DIR/resources/scrutinizer/.scrutinizer.yml .scrutinizer.yml
+}
 
-mkdir -p sites/all/modules/reload
-cp $KAFFE_DIR/resources/modules/f5 sites/all/modules/reload/
+copy_modules() {
+  mkdir -p sites/all/modules/reload
+  cp -r $KAFFE_DIR/resources/modules/f5 sites/all/modules/reload/
+}

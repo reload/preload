@@ -7,7 +7,7 @@ usage() {
   echo "usage: kaffe-bullet <subcommand>"
   echo
   echo "Available subcommands are:"
-  echo "   init      Start your project."
+  echo "   init     Start your project."
   echo
   echo "Try 'kaffe <subcommand> help' for details."
 }
@@ -20,7 +20,7 @@ main() {
   fi
 
     # load common functionality
-  . "$KAFFE_DIR/kaffe-common"
+    . "$KAFFE_DIR/kaffe-common"
 
   # Get the sub command.
   SUBCOMMAND="$1"; shift
@@ -31,9 +31,22 @@ main() {
     exit 1
   fi
 
-    # Run command
+  # Run file
   . "$KAFFE_DIR/kaffe-$SUBCOMMAND"
 
+
+  SUBACTION="default"
+  if [ "$1" != "" ] && { ! echo "$1" | grep -q "^-"; } then
+    SUBACTION="$1"; shift
+  fi
+  if ! type "cmd_$SUBACTION" >/dev/null 2>&1; then
+    warn "Unknown subcommand: '$SUBACTION'"
+    usage
+    exit 1
+  fi
+
+  # Run subcommand.
+  cmd_$SUBACTION "$@"
 }
 
 main "$@"
