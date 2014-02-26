@@ -56,12 +56,12 @@ write_settings_files() {
   # when drupal is installed the file will be overwritten with
   # default.settings.php
 cat <<- EOF > temp.txt
-  <?php
+<?php
 
-  // Include our settings. Comment out dev on relevant platforms, but always leave
-  // common.
-  require_once('common.settings.php');
-  require_once('dev.settings.php');
+// Include our settings. Comment out dev on relevant platforms, but always leave
+// common.
+require_once('common.settings.php');
+require_once('dev.settings.php');
 EOF
   tail -n +2 sites/default/default.settings.php >> temp.txt
   cp temp.txt sites/default/default.settings.php
