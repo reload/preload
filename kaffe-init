@@ -7,6 +7,7 @@ cmd_default() {
   setup_files_dir_and_rights
   copy_conf_files
   copy_modules
+  copy_patches_folder
 }
 
 get_web_server_user() {
@@ -92,4 +93,8 @@ copy_conf_files() {
 copy_modules() {
   mkdir -p sites/all/modules/reload
   cp -r $KAFFE_DIR/resources/modules/f5 sites/all/modules/reload/
+}
+
+copy_patches_folder() {
+  cp -r $KAFFE_DIR/resources/patches sites/all/modules/
 }
