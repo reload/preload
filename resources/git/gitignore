@@ -1,4 +1,7 @@
-; This project
-lav/
-; Mac files
+; Mac files.
 .DS_Store
+
+; Lav Kaffe project.
+lav/
+; Translations downloaded by Lav Kaffe.
+profiles/minimal/translations/

@@ -86,7 +86,7 @@ setup_files_dir_and_rights() {
 
 copy_conf_files() {
   cp $KAFFE_DIR/resources/circle/circle.yml .
-  cp $KAFFE_DIR/resources/git/gitignore .gitignore
+  cat $KAFFE_DIR/resources/git/gitignore >> .gitignore
   cp $KAFFE_DIR/resources/scrutinizer/.scrutinizer.yml .scrutinizer.yml
 }
 
