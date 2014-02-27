@@ -1,0 +1,7 @@
+name = STARTERTHEME
+description = TODO
+core = 7.x
+
+stylesheets[all][] = css/typography.css
+
+scripts[] = scripts/basic.js

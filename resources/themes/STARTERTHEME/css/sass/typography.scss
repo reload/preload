@@ -1,0 +1,52 @@
+@import "base";
+
+h1 {
+  @include big-heading;
+}
+
+
+.node-summary {
+  font-size: 1.3em;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+
+.node-full .node-full-body {
+  p,
+  h2{
+    margin-bottom: 1em;
+    line-height: 1.3em;
+  }
+  h2 {
+    font-weight: 800;
+  }
+}
+
+a {
+  color: $link-blue;
+  text-decoration: none;
+  background: transparent;
+}
+
+a:hover, a:focus {
+  color: $link-hover-blue;
+  text-decoration: underline;
+}
+
+.small-grey-text,
+.image-metadata{
+  font-size: 1em;
+  font-style: italic;
+  color: $grey;
+}
+
+.image-metadata,
+.tag-label {
+  font-size: 0.8em;
+  color: $grey;
+}
+
+.byline-container {
+  margin: 20px 0 10px;
+}

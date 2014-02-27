@@ -1,0 +1,88 @@
+@import "base";
+
+
+.set-left {
+  float: left;
+}
+.set-right {
+  float: right;
+}
+
+.reset-link a{
+  text-decoration: none;
+}
+
+.neg-margin {
+  @include mobile() {
+    margin: 0 -#{$content-area-margin} !important;
+  }
+}
+
+.hidden-mobile {
+  @include mq-phones {
+    display: none;
+  }
+  @include mq-phones-l {
+    display: none;
+  }
+  @include mq-phones-p {
+    display: none;
+  }
+}
+
+.hidden-desktop {
+  @include mq-laptops {
+    display: none;
+  }
+  @include mq-large {
+    display: none;
+  }
+  @include mq-ipads {
+    display: none;
+  }
+  @include mq-ipads-l {
+    display: none;
+  }
+  @include mq-ipads-p {
+    display: none;
+  }
+}
+.visible-desktop {
+  @include mq-laptops {
+    display: block;
+  }
+  @include mq-large {
+    display: block;
+  }
+  @include mq-ipads {
+    display: block;
+  }
+  @include mq-ipads-l {
+    display: block;
+  }
+  @include mq-ipads-p {
+    display: block;
+  }
+}
+
+.wide-mobile {
+  @include mobile {
+    width: 100% !important;
+  }
+}
+
+.spacing-before {
+  margin-top: 10px;
+}
+
+.double-spacing-before {
+  margin-top: 20px;
+}
+
+.spacing-after {
+  margin-bottom: 10px;
+}
+
+.double-spacing-after {
+  margin-bottom: 20px;
+}
