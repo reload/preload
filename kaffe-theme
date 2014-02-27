@@ -1,0 +1,37 @@
+#!/bin/sh
+
+cmd_default() {
+  get_name
+  write_files
+}
+
+write_files() {
+    # Copy theme files.
+  cp -r  $KAFFE_DIR/resources/themes/STARTERTHEME sites/all/themes/$theme_name
+  for file in $(find sites/all/themes/$theme_name)
+  do
+    if [ -f $file ]
+      then
+      # Files with STARTERTHEME in the file name get it replaced.
+      if [[ $(basename $file) == *STARTERTHEME* ]]
+        then
+        temp_file=`echo $file | sed "s/STARTERTHEME/$theme_name/"`
+        mv $file $temp_file
+        file=$temp_file
+      fi
+      # Files with STARTERTHEME in the file content get it replaced
+      perl -pi -e "s,STARTERTHEME,$theme_name,g" $file
+    fi
+  done
+}
+
+get_name() {
+    # Get the name of the theme.
+  echo "What should be the name of the theme? "
+  read theme_name
+
+  if [ -z "$theme_name" ]
+  then
+    echo "You have to supply a theme name to create it."
+  fi
+}
