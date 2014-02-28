@@ -91,8 +91,7 @@ copy_conf_files() {
 }
 
 copy_modules() {
-  mkdir -p sites/all/modules/reload
-  cp -r $KAFFE_DIR/resources/modules/f5 sites/all/modules/reload/
+  cp -r $KAFFE_DIR/resources/modules/reload sites/all/modules/
 }
 
 copy_patches_folder() {

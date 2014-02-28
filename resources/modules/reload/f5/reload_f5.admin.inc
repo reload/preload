@@ -1,57 +1,15 @@
 <?php
 
 /**
- * Implements hook_permission().
+ * @file
+ * Admin area for Reload! F5 module.
  */
-function f5_permission() {
-  return array(
-    'access reload tools' => array(
-      'title' => t('Access reload tools'),
-      'description' => t('Access to the Reload! tools area, but some tools may not be available'),
-    ),
-  );
-}
-
-/**
- * Implements hook_menu().
- */
-function f5_menu() {
-  $items['admin/config/reload'] = array(
-    'title' => 'Reload!',
-    'description' => 'Reload! settings and tools.',
-    'position' => 'right',
-    'weight' => -20,
-    'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('access reload tools'),
-    'file' => 'system.admin.inc',
-    'file path' => drupal_get_path('module', 'system'),
-  );
-
-  $items['admin/config/reload/f5'] = array(
-    'title' => 'F5 tools',
-    'access arguments' => array('access reload tools'),
-    'page callback' => 'f5_view_settings_variables',
-  );
-  $items['admin/config/reload/f5/settings-files'] = array(
-    'title' => 'Setting files variables',
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-    'weight' => -1,
-  );
-  $items['admin/config/reload/f5/variable-overrides'] = array(
-    'title' => 'Overridden variables',
-    'access arguments' => array('access reload tools'),
-    'page callback' => 'f5_overridden_variables_view',
-    'type' => MENU_LOCAL_TASK,
-  );
-
-  return $items;
-}
 
 /**
  * Menu callback to show included settings file's variables.
  */
-function f5_view_settings_variables() {
-  $settings_files = _f5_get_our_setting_files();
+function reload_f5_view_settings_variables() {
+  $settings_files = _reload_f5_get_our_setting_files();
   $renderable = array();
   foreach ($settings_files as $filename => $path) {
     $renderable[] = array(
@@ -73,8 +31,8 @@ function f5_view_settings_variables() {
  * @return string
  *   A table showing variables that are overriden in the database.
  */
-function f5_overridden_variables_view() {
-  $settings_files = _f5_get_our_setting_files();
+function reload_f5_overridden_variables_view() {
+  $settings_files = _reload_f5_get_our_setting_files();
   $db_vars = array_map('unserialize', db_query('SELECT name, value FROM {variable}')->fetchAllKeyed());
 
   $rows = array();
@@ -116,7 +74,7 @@ function f5_overridden_variables_view() {
  * @return array
  *   Array containing file paths to settings files.
  */
-function _f5_get_our_setting_files() {
+function _reload_f5_get_our_setting_files() {
   $settings_file = file_get_contents(conf_path() . '/settings.php');
   $matches = array();
   // Get the included settings files from the actual settings file.
