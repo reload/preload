@@ -31,8 +31,7 @@ module.exports = function (grunt) {
         imagesDir: 'images',
         javascriptsDir: 'scripts',
         fontsDir: 'css/fonts',
-        assetCacheBuster: 'none',
-        require: ['breakpoint']
+        assetCacheBuster: 'none'
       },
       dev: {
         options: {
