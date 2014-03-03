@@ -1,6 +1,6 @@
 {
   "name": "STARTERTHEME",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "devDependencies": {
     "grunt": "latest",
     "grunt-contrib-compass": "latest",
