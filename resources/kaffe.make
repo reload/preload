@@ -1,6 +1,8 @@
 core = 7.x
 api = 2
 
+defaults[projects][subdir] = "contrib"
+
 ; Just get the latest core. Patch it yourself if you must!
 projects[] = drupal
 

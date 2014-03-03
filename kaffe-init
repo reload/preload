@@ -41,7 +41,7 @@ do_make() {
   cp $KAFFE_DIR/resources/kaffe.make .
 
   # Run the make file this once like God intended make files to be run.
-  drush make kaffe.make . --contrib-destination=sites/all/modules/contrib
+  drush make kaffe.make .
   echo "Downloaded basic modules."
 
   # Get Drupal version number so we can download a translation.
