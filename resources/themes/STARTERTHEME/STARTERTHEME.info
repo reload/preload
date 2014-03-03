@@ -2,8 +2,8 @@ name = STARTERTHEME
 description = TODO
 core = 7.x
 
-stylesheets[all][] = css/reset.css
-stylesheets[all][] = css/typography.css
-stylesheets[all][] = css/misc.css
+stylesheets[all][] = css/STARTERTHEME.reset.css
+stylesheets[all][] = css/STARTERTHEME.typography.css
+stylesheets[all][] = css/STARTERTHEME.misc.css
 
 scripts[] = scripts/basic.js
