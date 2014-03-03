@@ -1,12 +1,12 @@
 {
   "name": "STARTERTHEME",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-compass": "~0.6.0",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-jshint": "~0.7.2",
-    "grunt-contrib-uglify": "~0.2.7"
+    "grunt": "latest",
+    "grunt-contrib-compass": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-uglify": "latest"
   }
 }
