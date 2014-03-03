@@ -95,6 +95,15 @@ copy_conf_files() {
 
 copy_modules() {
   cp -r $KAFFE_DIR/resources/modules/reload sites/all/modules/
+  # If there is a variable in the ~/.lav-kaffe pointing to a local folder with
+  # modules, then symlink to that. Useful for devel, stage_file_proxy,
+  # honeybadger, or bad_judgement.
+  if [ ! -z $localmodules ]
+  then
+    # Use ZZ prefix so that the modules in the folder are loaded last. The
+    # modules are loaded alphabetically if not specifically weighted.
+    ln -s $localmodules sites/all/modules/contrib/ZZ_SHARED_MODULES
+  fi
 }
 
 copy_patches_folder() {
