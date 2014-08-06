@@ -1,21 +1,19 @@
 <?php
 
-use Behat\Behat\Context\SnippetAcceptingContext;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
+use Behat\Behat\Context\ClosuredContextInterface,
+    Behat\Behat\Context\TranslatedContextInterface,
+    Behat\Behat\Context\BehatContext,
+    Behat\Behat\Exception\PendingException;
+use Behat\MinkExtension\Context\MinkContext;
+use Drupal\DrupalExtension\Context\DrupalContext;
 
-/**
- * Behat context class.
- */
-class FeatureContext implements SnippetAcceptingContext
+
+class FeatureContext extends DrupalContext
 {
-    /**
-     * Initializes context.
-     *
-     * Every scenario gets its own context object.
-     * You can also pass arbitrary arguments to the context constructor through behat.yml.
-     */
-    public function __construct()
-    {
-    }
+  public function __construct(array $parameters)
+  {
+    $this->admin = $parameters['admin'];
+  }
+
+
 }
