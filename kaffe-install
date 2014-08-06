@@ -52,6 +52,7 @@ enable_modules() {
   # Get rid of silly blocks for seven
   drush sql-query "UPDATE block SET region = '-1' WHERE theme = 'seven' AND delta IN('login', 'navigation', 'management')"
   # Enable contrib modules - do it in two rounds to avoid timeouts.
+  drush en -y shortcut
   drush en -y ctools admin_views date ds_extras ds_ui entity entityreference environment_indicator features field_group globalredirect
   drush en -y i18n l10n_update libraries pathauto strongarm token transliteration views views_bulk_operations xmlsitemap_node xmlsitemap_taxonomy
   # Enable our own custom stuff.
