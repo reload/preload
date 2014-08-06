@@ -21,6 +21,4 @@ default:
       region_map:
         Primary tabs: 'ul.primary.tabs'
         Main menu: '#main-menu'
-      subcontexts:
-        paths:
-          - '%behat.paths.base%/../subcontexts'
+
