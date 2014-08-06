@@ -42,7 +42,6 @@ projects[] = wysiwyg
 
 
 ; Development related modules
-projects[] = behat
 projects[] = devel
 projects[] = diff
 projects[] = environment_indicator
