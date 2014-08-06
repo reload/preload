@@ -6,11 +6,6 @@ default:
   paths:
     features: '%behat.paths.base%/../features'
     bootstrap: '%behat.paths.features%/bootstrap'
-  context:
-    parameters:
-      admin:
-        username: 'reload'
-        password: 'reload!'
   extensions:
     Behat\MinkExtension\Extension:
       show_cmd: 'open %s'
