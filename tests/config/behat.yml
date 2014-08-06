@@ -1,0 +1,31 @@
+imports:
+  - behat.local.yml
+default:
+  filters: 
+    tags: '~@wip'
+  paths:
+    features: '%behat.paths.base%/../features'
+    bootstrap: '%behat.paths.features%/bootstrap'
+  context:
+    parameters:
+      admin:
+        username: 'reload'
+        password: 'reload!'
+  extensions:
+    Behat\MinkExtension\Extension:
+      show_cmd: 'open %s'
+      default_session: 'selenium2'
+      javascript_session: 'selenium2'
+      selenium2:
+        browser: firefox
+      goutte: ~
+      selenium2:
+        wd_host: "http://localhost:4444/wd/hub"
+    Drupal\DrupalExtension\Extension:
+      blackbox: ~
+      region_map:
+        Primary tabs: 'ul.primary.tabs'
+        Main menu: '#main-menu'
+      subcontexts:
+        paths:
+          - '%behat.paths.base%/../subcontexts'

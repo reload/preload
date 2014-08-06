@@ -1,0 +1,16 @@
+# Copy this file to behat.local.yml and change parameters
+# Local configuration.
+default:
+  context:
+    parameters:
+      admin:
+        username: 'reload'
+        password: 'reload!'
+  extensions:
+    Behat\MinkExtension\Extension:
+      base_url: 'Input base url here'
+    Drupal\DrupalExtension\Extension:
+      # Set this drush alias in your aliases.drushrc.php file to match
+      # the base_url set above. Leave off the preceding '@'.
+      drush:
+        alias: 'Input site alias here'
