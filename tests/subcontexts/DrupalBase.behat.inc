@@ -3,6 +3,7 @@
 use Drupal\DrupalExtension\Context\DrupalSubContextInterface;
 use Behat\Behat\Context\BehatContext;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Behat\Exception\PendingException;
 
 class DrupalBaseSubContext extends BehatContext implements DrupalSubContextInterface {
 
