@@ -12,22 +12,32 @@ class DrupalBaseSubContext extends BehatContext implements DrupalSubContextInter
   }
 
   /**
-   * Get Session from main context
+   * Get Main Context
    */
-  public function getSession($name = null) {
-    return $this->getMainContext()->getSession($name);
+  public function gmc() {
+    return $this->getMainContext();
   }
 
-  // Get subcontext from alias
+  /**
+   * Get Sub Context from alias
+   */
   public function gsc($alias) {
-    return $this->getMainContext()->getSubcontext($alias);
+    return $this->gmc()->getSubcontext($alias);
   }
+
+  /**
+   * Get Session from Main Context
+   */
+  public function getSession($name = null) {
+    return $this->gmc()->getSession($name);
+  }
+
 
   /**
    * @Given /^(?:|I )log in as "(?P<role>[^"]*)"$/
    */
   public function iLogInAs($role) {
-    $user = $this->getMainContext()->test_users[$role];
+    $user = $this->gmc()->test_users[$role];
     $this->login($user['username'], $user['password']);
   }
 
@@ -35,12 +45,12 @@ class DrupalBaseSubContext extends BehatContext implements DrupalSubContextInter
    * @Given /^(?:|I )am logged in with username "(?P<username>[^"]*)" and password "(?P<password>[^"]*)"$/
    */
   public function login($username, $password) {
-    $this->getMainContext()->visit('/user');
-    $this->getMainContext()->fillField('edit-name', $username);
-    $this->getMainContext()->fillField('edit-pass', $password);
-    $this->getMainContext()->pressButton('edit-submit');
+    $this->gmc()->visit('/user');
+    $this->gmc()->fillField('edit-name', $username);
+    $this->gmc()->fillField('edit-pass', $password);
+    $this->gmc()->pressButton('edit-submit');
     $this->getSession()->wait(2000);
-    $this->getMainContext()->assertPageContainsText('Log out');
+    $this->gmc()->assertPageContainsText('Log out');
   }
 
   /**
@@ -51,8 +61,8 @@ class DrupalBaseSubContext extends BehatContext implements DrupalSubContextInter
     $hash = $table->getHash();
     foreach ($hash as $user) {
       $username = $user['username'].time();
-      $this->getMainContext()->visit('/admin/people/create');
-      $this->getMainContext()->fillField('edit-name', $username);
+      $this->gmc()->visit('/admin/people/create');
+      $this->gmc()->fillField('edit-name', $username);
       $this->getMainContext()->fillField('edit-mail', $username.'@reload.dk');
       $this->getMainContext()->fillField('edit-pass-pass1', $user['password']);
       $this->getMainContext()->fillField('edit-pass-pass2', $user['password']);
