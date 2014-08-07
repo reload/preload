@@ -63,13 +63,13 @@ class DrupalBaseSubContext extends BehatContext implements DrupalSubContextInter
       $username = $user['username'].time();
       $this->gmc()->visit('/admin/people/create');
       $this->gmc()->fillField('edit-name', $username);
-      $this->getMainContext()->fillField('edit-mail', $username.'@reload.dk');
-      $this->getMainContext()->fillField('edit-pass-pass1', $user['password']);
-      $this->getMainContext()->fillField('edit-pass-pass2', $user['password']);
-      $this->getMainContext()->checkOption($user['role']);
-      $this->getMainContext()->pressButton('edit-submit');
+      $this->gmc()->fillField('edit-mail', $username.'@reload.dk');
+      $this->gmc()->fillField('edit-pass-pass1', $user['password']);
+      $this->gmc()->fillField('edit-pass-pass2', $user['password']);
+      $this->gmc()->checkOption($user['role']);
+      $this->gmc()->pressButton('edit-submit');
       $this->getSession()->wait(1000);
-      $this->getMainContext()->assertPageContainsText('Created a new user account for '.$user['username']);
+      $this->gmc()->assertPageContainsText('Created a new user account for '.$user['username']);
     }
   }
 
@@ -137,8 +137,8 @@ JS;
    * @When /^(?:|I )add the category "(?P<name>[^"]*)"$/
    */
   public function iAddTheCategory($name) {
-    $this->getMainContext()->fillField('edit-name', $name);
-    $this->getMainContext()->pressButton('edit-submit');
+    $this->gmc()->fillField('edit-name', $name);
+    $this->gmc()->pressButton('edit-submit');
     $this->getSession()->wait(1000);
   }
 
@@ -147,27 +147,27 @@ JS;
    */
   public function iUploadAndInsertTheMedia($image) {
     // Needed for test in IE since the button hides
-    $this->getMainContext()->scrollIntoView('edit-field-main-image-und-0-select');
+    $this->gmc()->scrollIntoView('edit-field-main-image-und-0-select');
 
-    $this->getMainContext()->clickLink('edit-field-main-image-und-0-select');
+    $this->gmc()->clickLink('edit-field-main-image-und-0-select');
 
     // Switch to iframe
     $this->getSession()->switchToIFrame('mediaBrowser');
 
-    $this->getMainContext()->attachFileToField('edit-upload-upload', $image);
+    $this->gmc()->attachFileToField('edit-upload-upload', $image);
 
     $this->gsc('Utils')->spin(function($context) {
-      $context->getMainContext()->assertRegionPressButton('Upload', 'MediaBrowserPage');
+      $context->gmc()->assertRegionPressButton('Upload', 'MediaBrowserPage');
       return true;
     });
 
     $this->gsc('Utils')->spin(function($context) {
-      $context->getMainContext()->assertRegionPressButton('edit-next', 'MediaBrowserPage');
+      $context->gmc()->assertRegionPressButton('edit-next', 'MediaBrowserPage');
       return true;
     });
 
     // Phatomjs crashes here!
-    $this->getMainContext()->assertRegionPressButton('edit-submit', 'MediaBrowserPage');
+    $this->gmc()->assertRegionPressButton('edit-submit', 'MediaBrowserPage');
 
     // switch back to main frame
     $this->getSession()->switchToIFrame();
