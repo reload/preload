@@ -3,9 +3,13 @@
 default:
   context:
     parameters:
-      admin:
-        username: 'reload'
-        password: 'reload!'
+      drupal_users:
+        admin:
+          username: 'input admin username here'
+          password: 'input admin password here'
+        editor:
+          username: 'input editor username here'
+          password: 'input editor password here'
   extensions:
     Behat\MinkExtension\Extension:
       base_url: 'Input base url here'
