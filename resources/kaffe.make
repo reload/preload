@@ -38,7 +38,10 @@ projects[] = views
 projects[] = views_bulk_operations
 projects[] = xmlsitemap
 projects[] = webform
-projects[] = wysiwyg
+
+projects[wysiwyg][subdir] = contrib
+projects[wysiwyg][version] = 2.2
+projects[wysiwyg][patch][] = https://www.drupal.org/files/wysiwyg-ckeditor-4.1853550.136.patch
 
 
 ; Development related modules
@@ -46,3 +49,11 @@ projects[] = devel
 projects[] = diff
 projects[] = environment_indicator
 projects[] = stage_file_proxy
+
+
+; Libraries
+libraries[ckeditor][download][type] = get
+libraries[ckeditor][download][url] = http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.4.3/ckeditor_4.4.3_full.zip
+libraries[ckeditor][directory_name] = ckeditor
+libraries[ckeditor][destination] = libraries
+
