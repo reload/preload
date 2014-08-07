@@ -6,7 +6,12 @@ defaults[projects][subdir] = "contrib"
 ; Just get the latest core. Patch it yourself if you must!
 projects[] = drupal
 
+projects[] = advagg
+projects[] = apc
+projects[admin_menu][subdir] = contrib
+projects[admin_menu][version] = 3.x-dev
 projects[] = admin_views
+projects[] = chosen
 projects[] = ctools
 projects[] = date
 projects[] = ds
@@ -17,12 +22,14 @@ projects[] = field_collection
 projects[] = field_group
 projects[] = file_entity
 projects[] = globalredirect
+projects[] = google_analytics
 projects[] = i18n
 projects[] = l10n_update
 projects[] = libraries
 projects[] = jquery_update
 projects[] = link
 projects[] = linkit
+projects[] = login_destination
 projects[] = metatag
 projects[] = media
 projects[] = pathauto
@@ -47,9 +54,10 @@ projects[wysiwyg][patch][] = https://www.drupal.org/files/wysiwyg-ckeditor-4.185
 ; Development related modules
 projects[] = devel
 projects[] = diff
-projects[] = environment_indicator
+projects[environment_indicator][subdir] = contrib
+projects[environment_indicator][version] = 2.x-dev
 projects[] = stage_file_proxy
-
+projects[] = masquerade
 
 ; Libraries
 libraries[ckeditor][download][type] = get
