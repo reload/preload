@@ -40,7 +40,6 @@ site_install() {
 drush_scripts() {
   # Run some code via drush.
   drush scr $KAFFE_DIR/resources/scripts/user_roles.drush.php
-  drush scr $KAFFE_DIR/resources/scripts/filter_formats.drush.php
   drush scr $KAFFE_DIR/resources/scripts/vars.drush.php
 }
 
