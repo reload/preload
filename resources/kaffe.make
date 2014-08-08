@@ -52,12 +52,15 @@ projects[wysiwyg][patch][] = https://www.drupal.org/files/wysiwyg-ckeditor-4.185
 
 
 ; Development related modules
-projects[] = devel
-projects[] = diff
-projects[environment_indicator][subdir] = contrib
+projects[devel][subdir] = development
+projects[diff][subdir] = development
+projects[environment_indicator][subdir] = development
 projects[environment_indicator][version] = 2.x-dev
-projects[] = stage_file_proxy
-projects[] = masquerade
+projects[stage_file_proxy][subdir] = development
+projects[masquerade][subdir] = development
+projects[module_filter][subdir] = development
+projects[devel_themer][subdir] = development
+projects[livereload][subdir] = development
 
 ; Libraries
 libraries[ckeditor][download][type] = get
@@ -65,3 +68,7 @@ libraries[ckeditor][download][url] = http://download.cksource.com/CKEditor/CKEdi
 libraries[ckeditor][directory_name] = ckeditor
 libraries[ckeditor][destination] = libraries
 
+libraries[chosen][download][type] = get
+libraries[chosen][download][url] = https://github.com/harvesthq/chosen/archive/v1.1.0.tar.gz
+libraries[chosen][directory_name] = chosen
+libraries[chosen][destination] = libraries
