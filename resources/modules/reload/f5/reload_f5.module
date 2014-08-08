@@ -4,6 +4,10 @@
  * Generic module with code that is often reused across sites.
  */
 
+
+include_once 'reload_f5.features.inc';
+
+
 /**
  * Implements hook_menu().
  */

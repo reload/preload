@@ -1,3 +1,9 @@
 name = Reload! - F5
 description = Base module for Reload! sites.
 core = 7.x
+package = Reload
+dependencies[] = ctools
+dependencies[] = linkit
+features[ctools][] = linkit:linkit_profiles:1
+features[features_api][] = api:2
+features[linkit_profiles][] = default_linkit_profile
