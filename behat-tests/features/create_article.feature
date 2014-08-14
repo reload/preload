@@ -1,4 +1,4 @@
-@javascript
+@javascript @specific-text
 Feature: Create An Article
 In order to create an article
 As an editor

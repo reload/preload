@@ -1,4 +1,4 @@
-@smoke
+@smoke @specific-text
 Feature: Test
 In order to test our setup
 As a developer

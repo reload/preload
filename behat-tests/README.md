@@ -47,7 +47,7 @@ Der er tags til udvælgelse af hvilke tests der skal køres baseret på testens 
 `@anon`
     Bruges til features/scenarier der ikke behøver user authentication for at køre testen.
 
-`@specific_text`
+`@specific-text`
     Angiver tests der afhænger af en specifik tekststreng og derfor har større sandsynlighed for at kræve løbende opdatering.
 
 

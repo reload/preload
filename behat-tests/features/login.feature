@@ -1,4 +1,4 @@
-@javascript
+@javascript @specific-text
 Feature: Login test
 In order to get access to content for authenticated users
 As an editor
