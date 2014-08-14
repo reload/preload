@@ -1,7 +1,9 @@
-@javascript
+@smoke
 Feature: Test
-Dette er en første test for at se at vores setup virker
+In order to test our setup
+As a developer
+I want to run this test
 
-Scenario: første test
+Scenario: Can we see the frontpage of the site
 Given I am on homepage
-Then I should see "No front page content has been created yet"
+Then I should see "Der er ikke blevet oprettet forsideindhold endnu"
