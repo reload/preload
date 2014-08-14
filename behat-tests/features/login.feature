@@ -1,8 +1,11 @@
 @javascript
 Feature: Login test
-  Kontroller at man kan logge ind
+In order to get access to content for authenticated users
+As an editor
+I want to be able to login
 
-  Scenario: anden test
+  @api
+  Scenario: Login as editor
     Given I am on homepage
-    Given I am logged in with username "reload" and password "reload!"
-    Then I should see "Member for"
+    And I am logged in as a user with the "editor" role
+    Then I should not see "Log ind"
