@@ -12,8 +12,10 @@ class FeatureContext extends DrupalContext
 {
   public function __construct(array $parameters)
   {
-    $this->admin = $parameters['admin'];
+    if (isset($parameters['drupal_users'])) {
+      $this->drupal_users = $parameters['drupal_users'];
+    }
   }
-
-
+  
 }
+
