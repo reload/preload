@@ -17,9 +17,15 @@ default:
         wd_host: "http://localhost:4444/wd/hub"
     Drupal\DrupalExtension\Extension:
       blackbox: ~
+      api_driver: 'drush'
       region_map:
         Primary tabs: 'ul.primary.tabs'
         Main menu: '#main-menu'
+      text:
+        log_out: "Log ud"
+        log_in: "Log ind"
+        password_field: "Adgangskode"
+        username_field: "Brugernavn"
       subcontexts:
         paths:
           - '%behat.paths.base%/../subcontexts'
