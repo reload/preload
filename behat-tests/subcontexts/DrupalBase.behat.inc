@@ -37,7 +37,7 @@ class DrupalBaseSubContext extends BehatContext implements DrupalSubContextInter
    * @Given /^(?:|I )log in as "(?P<role>[^"]*)"$/
    */
   public function iLogInAs($role) {
-    $user = $this->gmc()->test_users[$role];
+    $user = $this->gmc()->drupal_users[$role];
     $this->login($user['username'], $user['password']);
   }
 
@@ -50,7 +50,7 @@ class DrupalBaseSubContext extends BehatContext implements DrupalSubContextInter
     $this->gmc()->fillField('edit-pass', $password);
     $this->gmc()->pressButton('edit-submit');
     $this->getSession()->wait(2000);
-    $this->gmc()->assertPageContainsText('Log out');
+    $this->gmc()->assertPageContainsText('Log ud');
   }
 
   /**
