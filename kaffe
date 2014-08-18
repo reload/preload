@@ -10,6 +10,7 @@ usage() {
   echo "   init     Start your project."
   echo "   install  Installs site."
   echo "   theme    Create an initial theme."
+  echo "   content  Install content modules."
   echo
   echo "Try 'kaffe <subcommand> help' for details."
 }

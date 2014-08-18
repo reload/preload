@@ -31,11 +31,16 @@ projects[] = link
 projects[] = linkit
 projects[] = login_destination
 projects[] = metatag
-projects[] = media
+projects[media][subdir] = contrib
+projects[media][version] = 2.0-alpha3
+
+
+
 projects[] = pathauto
 projects[] = pathologic
 projects[] = rules
 projects[] = search_api
+projects[] = secure_permissions
 projects[] = scheduler
 projects[] = strongarm
 projects[] = token
@@ -69,6 +74,6 @@ libraries[ckeditor][directory_name] = ckeditor
 libraries[ckeditor][destination] = libraries
 
 libraries[chosen][download][type] = get
-libraries[chosen][download][url] = https://github.com/harvesthq/chosen/archive/v1.1.0.tar.gz
+libraries[chosen][download][url] = https://github.com/harvesthq/chosen/releases/download/v1.1.0/chosen_v1.1.0.zip
 libraries[chosen][directory_name] = chosen
 libraries[chosen][destination] = libraries

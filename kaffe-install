@@ -32,8 +32,29 @@ site_install() {
     echo "Database url cannot be empty."
   fi
 
+
   # Now install the site.
   drush site-install minimal --locale=da --site-name="$site_name" --account-mail=$site_email --account-name=$KAFFE_D_USER --account-pass=$KAFFE_D_PWD --db-url=$db_url
+
+  clear
+  echo "\nIf you wanna use Google Analytics please provide your key now\n(UA-xxxxxxx-yy): "
+  read ga_key
+
+  if [ -z "$ga_key" ]
+  then
+    echo "Remember to configure it later on"
+  else
+    drush en -y googleanalytics
+    drush vset googleanalytics_account $ga_key
+  fi
+
+  clear
+  read -p "\nDo you wish to install Development related tools such as devel, stage_file_proxy, diff, etc.: " yn
+  case $yn in
+    [Yy]* ) drush en -y devel diff stage_file_proxy livereload reload_dev module_filter;break;;
+    [Nn]* ) echo "Alrighty then!";break;;
+    * ) echo "Please answer yes or no.";;
+  esac
 
 }
 
