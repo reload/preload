@@ -73,6 +73,7 @@ projects[masquerade][subdir] = development
 projects[module_filter][subdir] = development
 projects[devel_themer][subdir] = development
 projects[livereload][subdir] = development
+projects[ultimate_cron][subdir] = development
 
 ; Libraries
 libraries[ckeditor][download][type] = get

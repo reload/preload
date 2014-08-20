@@ -9,15 +9,15 @@ cmd_default() {
 site_install() {
 
 
-echo "   ___   ____ __   ____   ___    ___                             "
-echo "  / _ \ / __// /  / __ \ / _ |  / _ \                            "
-echo " / , _// _/ / /__/ /_/ // __ | / // /                            "
-echo "/_/|_|/___//____/\____//_/ |_|/____/                             "
-echo "   ____ ____ ______ ____  ____ _  __ ____ ______ ___    __    __ "
-echo "  / __//  _//_  __// __/ /  _// |/ // __//_  __// _ |  / /   / / "
-echo " _\ \ _/ /   / /  / _/  _/ / /    /_\ \   / /  / __ | / /__ / /__"
-echo "/___//___/  /_/  /___/ /___//_/|_//___/  /_/  /_/ |_|/____//____/"
-echo " "
+echo '   ___   ____ __   ____   ___    ___ '
+echo '  / _ \ / __// /  / __ \ / _ |  / _ \'
+echo ' / , _// _/ / /__/ /_/ // __ | / // /'
+echo '/_/|_|/___//____/\____//_/ |_|/____/ '
+echo '   ____ ____ ______ ____  ____ _  __ ____ ______ ___    __    __ '
+echo '  / __//  _//_  __// __/ /  _// |/ // __//_  __// _ |  / /   / / '
+echo ' _\ \ _/ /   / /  / _/  _/ / /    /_\ \   / /  / __ | / /__ / /__'
+echo '/___//___/  /_/  /___/ /___//_/|_//___/  /_/  /_/ |_|/____//____/'
+echo ' '
 
   # Get the name of the site.
   echo "What is the site name?"
@@ -25,7 +25,8 @@ echo " "
 
   if [ -z "$site_name" ]
   then
-    echo "Site name cannot be empty."
+    site_name='default'
+    echo "Site name set to $site_name. Cannot be empty."
   fi
 
   # Remove whitespace and concatenate the email into the format:
@@ -36,7 +37,7 @@ echo " "
 
   echo "\$conf['site_name'] = '$site_name';" >> sites/default/common.settings.php
 
-  echo "Now enter the url to your database (fx. mysql://username:pass@localhost:3306/kaffe): "
+  echo 'Now enter the url to your database (fx. mysql://username:pass@localhost:3306/kaffe): '
   read db_url
 
   if [ -z "$db_url" ]
