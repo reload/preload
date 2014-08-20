@@ -34,6 +34,10 @@ projects[] = metatag
 projects[media][subdir] = contrib
 projects[media][version] = 2.0-alpha3
 
+projects[media_youtube][subdir] = contrib
+projects[media_vimeo][subdir] = contrib
+projects[media_soundcloud][subdir] = contrib
+projects[media_23video][subdir] = contrib
 
 
 projects[] = pathauto

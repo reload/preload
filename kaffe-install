@@ -7,8 +7,20 @@ cmd_default() {
 }
 
 site_install() {
+
+
+echo "   ___   ____ __   ____   ___    ___                             "
+echo "  / _ \ / __// /  / __ \ / _ |  / _ \                            "
+echo " / , _// _/ / /__/ /_/ // __ | / // /                            "
+echo "/_/|_|/___//____/\____//_/ |_|/____/                             "
+echo "   ____ ____ ______ ____  ____ _  __ ____ ______ ___    __    __ "
+echo "  / __//  _//_  __// __/ /  _// |/ // __//_  __// _ |  / /   / / "
+echo " _\ \ _/ /   / /  / _/  _/ / /    /_\ \   / /  / __ | / /__ / /__"
+echo "/___//___/  /_/  /___/ /___//_/|_//___/  /_/  /_/ |_|/____//____/"
+echo " "
+
   # Get the name of the site.
-  echo "What is the site name? "
+  echo "What is the site name?"
   read site_name
 
   if [ -z "$site_name" ]
@@ -36,7 +48,7 @@ site_install() {
   # Now install the site.
   drush site-install minimal --locale=da --site-name="$site_name" --account-mail=$site_email --account-name=$KAFFE_D_USER --account-pass=$KAFFE_D_PWD --db-url=$db_url
 
-  clear
+
   echo "\nIf you wanna use Google Analytics please provide your key now\n(UA-xxxxxxx-yy): "
   read ga_key
 
@@ -48,13 +60,25 @@ site_install() {
     drush vset googleanalytics_account $ga_key
   fi
 
-  clear
-  read -p "\nDo you wish to install Development related tools such as devel, stage_file_proxy, diff, etc.: " yn
+
+  echo "\nDo you wish to install Development related tools such as devel, stage_file_proxy, diff, etc.:"
+  read -p "Choose yes of no (y/n): " yn
   case $yn in
-    [Yy]* ) drush en -y devel diff stage_file_proxy livereload reload_dev module_filter;break;;
+    [Yy]* ) drush en -y devel diff stage_file_proxy reload_dev module_filter;break;;
     [Nn]* ) echo "Alrighty then!";break;;
     * ) echo "Please answer yes or no.";;
   esac
+
+  clear
+
+  echo "\nPlease select your type of spam protection \n1. Mollom\n2. Captcha/reCaptcha\n3. Honeypot"
+  read -p "Please select: " spam
+    case $spam in
+      [1]* ) drush dl mollom && drush en -y mollom;break;;
+      [2]* ) drush dl captcha recaptcha && drush en -y captcha recaptcha;break;;
+      [3]* ) drush dl honeypot && drush en -y honeypot;break;;
+      * ) echo "No spam protection selected";;
+    esac
 
 }
 
