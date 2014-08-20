@@ -57,7 +57,10 @@ projects[] = webform
 
 projects[wysiwyg][subdir] = contrib
 projects[wysiwyg][version] = 2.2
-projects[wysiwyg][patch][] = https://www.drupal.org/files/wysiwyg-ckeditor-4.1853550.136.patch
+;projects[wysiwyg][patch][] = https://www.drupal.org/files/wysiwyg-ckeditor-4.1853550.136.patch
+; The above patch is against dev. Here is one rerolled to 2.2
+projects[wysiwyg][patch][] = https://www.drupal.org/files/wysiwyg-ckeditor-4.1853550.172-do-not-test.patch
+
 
 
 ; Development related modules
