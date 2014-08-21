@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 cmd_default() {
   site_install
@@ -9,14 +9,18 @@ cmd_default() {
 site_install() {
 
 
-echo '   ___   ____ __   ____   ___    ___ '
-echo '  / _ \ / __// /  / __ \ / _ |  / _ \'
-echo ' / , _// _/ / /__/ /_/ // __ | / // /'
-echo '/_/|_|/___//____/\____//_/ |_|/____/ '
-echo '   ____ ____ ______ ____  ____ _  __ ____ ______ ___    __    __ '
-echo '  / __//  _//_  __// __/ /  _// |/ // __//_  __// _ |  / /   / / '
-echo ' _\ \ _/ /   / /  / _/  _/ / /    /_\ \   / /  / __ | / /__ / /__'
-echo '/___//___/  /_/  /___/ /___//_/|_//___/  /_/  /_/ |_|/____//____/'
+echo '         __   __  ____      _                 _   _  __   __'
+echo '        / /  / / |  _ \ ___| | ___   __ _  __| | | | \ \  \ \'
+echo '       / /  / /  | |_) / _ \ |/ _ \ / _` |/ _` | | |  \ \  \ \'
+echo '       \ \  \ \  |  _ <  __/ | (_) | (_| | (_| | |_|  / /  / /'
+echo '        \_\  \_\ |_| \_\___|_|\___/ \__,_|\__,_| (_) /_/  /_/'
+echo '         _ _                 _           _        _ _'
+echo '     ___(_) |_ ___          (_)_ __  ___| |_ __ _| | | ___ _ __'
+echo '    / __| | __/ _ \  _____  | | `_ \/ __| __/ _` | | |/ _ \ `__|'
+echo '    \__ \ | ||  __/ |_____| | | | | \__ \ || (_| | | |  __/ |'
+echo '    |___/_|\__\___|         |_|_| |_|___/\__\__,_|_|_|\___|_|'
+echo '     _   _   _   _   _   _   _   _   _   _   _   _   _   _   _'
+echo '    (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_)'
 echo ' '
 
   # Get the name of the site.
@@ -50,7 +54,9 @@ echo ' '
   drush site-install minimal --locale=da --site-name="$site_name" --account-mail=$site_email --account-name=$KAFFE_D_USER --account-pass=$KAFFE_D_PWD --db-url=$db_url
 
 
-  echo "\nIf you wanna use Google Analytics please provide your key now\n(UA-xxxxxxx-yy): "
+  clear
+  echo "\n"
+  echo "If you wanna use Google Analytics please provide your key now\n(UA-xxxxxxx-yy): "
   read ga_key
 
   if [ -z "$ga_key" ]
@@ -61,25 +67,42 @@ echo ' '
     drush vset googleanalytics_account $ga_key
   fi
 
-
-  echo "\nDo you wish to install Development related tools such as devel, stage_file_proxy, diff, etc.:"
-  read -p "Choose yes of no (y/n): " yn
-  case $yn in
-    [Yy]* ) drush en -y devel diff stage_file_proxy reload_dev module_filter;break;;
-    [Nn]* ) echo "Alrighty then!";break;;
-    * ) echo "Please answer yes or no.";;
-  esac
+  clear
+  echo "\n"
+  echo "Do you wish to install Development related tools such as devel, stage_file_proxy, diff, etc.:"
+  while true; do
+    read -p "Choose yes of no (y/n): " yn
+    case $yn in
+      [Yy]* ) drush en -y devel diff stage_file_proxy reload_dev module_filter;break;;
+      [Nn]* ) echo "Alrighty then!";break;;
+      * ) echo "Please answer yes or no (y/n)";;
+    esac
+  done
 
   clear
-
-  echo "\nPlease select your type of spam protection \n1. Mollom\n2. Captcha/reCaptcha\n3. Honeypot"
+  echo "\n"
+  echo "Please select your type of spam protection \n1. Mollom\n2. Captcha/reCaptcha\n3. Honeypot"
   read -p "Please select: " spam
     case $spam in
-      [1]* ) drush dl mollom && drush en -y mollom;break;;
-      [2]* ) drush dl captcha recaptcha && drush en -y captcha recaptcha;break;;
-      [3]* ) drush dl honeypot && drush en -y honeypot;break;;
+      [1]* ) drush dl -y mollom && drush en -y mollom;break;;
+      [2]* ) drush dl -y captcha recaptcha && drush en -y captcha recaptcha;break;;
+      [3]* ) drush dl -y honeypot && drush en -y honeypot;break;;
       * ) echo "No spam protection selected";;
     esac
+
+  clear
+  echo "\n"
+  echo "Do you want to use a preconfigured article content type?"
+  while true; do
+    read -p "Choose yes of no (y/n): " yn
+    case $yn in
+      [Yy]* ) drush en -y reload_article;break;;
+      [Nn]* ) break;;
+      * ) echo "Please answer yes or no (y/n)";;
+    esac
+  done
+
+
 
 }
 
