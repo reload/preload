@@ -11,4 +11,5 @@ features[ctools][] = linkit:linkit_profiles:1
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
 features[linkit_profiles][] = default_linkit_profile
+features[variable][] = admin_menu_components
 features[variable][] = scheduler_field_type
