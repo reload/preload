@@ -4,10 +4,10 @@ cmd_default() {
   site_install
   drush_scripts
   enable_modules
+  drush_scripts_post
 }
 
 site_install() {
-
 
 echo '         __   __  ____      _                 _   _  __   __'
 echo '        / /  / / |  _ \ ___| | ___   __ _  __| | | | \ \  \ \'
@@ -112,6 +112,24 @@ drush_scripts() {
   drush scr $KAFFE_DIR/resources/scripts/vars.drush.php
 }
 
+drush_scripts_post() {
+  # Run some code via drush.
+
+  drush en -y reload_editor
+  drush secure-permissions-rebuild
+  clear
+    echo "\n"
+    echo "Do you want an editor user to be created (user:editor / pass:editor)?"
+    while true; do
+      read -p "Choose yes of no (y/n): " yn
+      case $yn in
+        [Yy]* ) drush scr $KAFFE_DIR/resources/scripts/create_default_editor_user.drush.php;break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no (y/n)";;
+      esac
+    done
+}
+
 enable_modules() {
   # Enable core modules we want.
   drush en -y block contextual image list menu number options path taxonomy dblog toolbar field_ui file rdf
@@ -120,8 +138,8 @@ enable_modules() {
   # Get rid of silly blocks for seven
   drush sql-query "UPDATE block SET region = '-1' WHERE theme = 'seven' AND delta IN('login', 'navigation', 'management')"
   # Enable contrib modules - do it in two rounds to avoid timeouts.
-  drush dis -y toolbar && drush en -y admin_menu_toolbar shortcut
-  drush en -y webform jquery_update media wysiwyg linkit pathologic chosen scheduler link
+  drush dis -y toolbar && drush en -y admin_menu_toolbar shortcut ultimate_cron
+  drush en -y webform jquery_update media wysiwyg linkit pathologic chosen scheduler link clone smart_trim page_manager
   drush en -y ctools admin_views date ds_extras ds_ui entity entityreference environment_indicator features field_group globalredirect
   drush en -y i18n l10n_update libraries pathauto strongarm token transliteration views views_bulk_operations xmlsitemap_node xmlsitemap_taxonomy
   # Enable our own custom stuff.

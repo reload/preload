@@ -39,13 +39,20 @@ projects[media_vimeo][subdir] = contrib
 projects[media_soundcloud][subdir] = contrib
 projects[media_23video][subdir] = contrib
 
+projects[] = node_clone
 
 projects[] = pathauto
 projects[] = pathologic
 projects[] = rules
 projects[] = search_api
-projects[] = secure_permissions
+
+projects[secure_permissions][subdir] = contrib
+projects[secure_permissions][version] = 1.6
+projects[secure_permissions][patch][] = https://www.drupal.org/files/issues/2188491-features-multilingual-2.patch
+projects[secure_permissions][patch][] = https://www.drupal.org/files/secure_permissions-duplicate_role_exception-1744274-4.patch
+
 projects[] = scheduler
+projects[] = smart_trim
 projects[] = strongarm
 projects[] = token
 projects[] = transliteration
