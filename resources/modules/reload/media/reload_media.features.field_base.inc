@@ -1,24 +1,22 @@
 <?php
 /**
  * @file
- * reload_article.features.field_base.inc
+ * reload_media.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function reload_article_field_default_field_bases() {
+function reload_media_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'body'
-  $field_bases['body'] = array(
+  // Exported field_base: 'field_file_image_alt_text'
+  $field_bases['field_file_image_alt_text'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
-    'entity_types' => array(
-      0 => 'node',
-    ),
-    'field_name' => 'body',
+    'entity_types' => array(),
+    'field_name' => 'field_file_image_alt_text',
     'foreign keys' => array(
       'format' => array(
         'columns' => array(
@@ -34,39 +32,40 @@ function reload_article_field_default_field_bases() {
     ),
     'locked' => 0,
     'module' => 'text',
-    'settings' => array(),
+    'settings' => array(
+      'max_length' => 255,
+    ),
     'translatable' => 0,
-    'type' => 'text_with_summary',
+    'type' => 'text',
   );
 
-  // Exported field_base: 'field_main_image'
-  $field_bases['field_main_image'] = array(
+  // Exported field_base: 'field_file_image_title_text'
+  $field_bases['field_file_image_title_text'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_main_image',
+    'field_name' => 'field_file_image_title_text',
     'foreign keys' => array(
-      'fid' => array(
+      'format' => array(
         'columns' => array(
-          'fid' => 'fid',
+          'format' => 'format',
         ),
-        'table' => 'file_managed',
+        'table' => 'filter_format',
       ),
     ),
     'indexes' => array(
-      'fid' => array(
-        0 => 'fid',
+      'format' => array(
+        0 => 'format',
       ),
     ),
     'locked' => 0,
-    'module' => 'image',
+    'module' => 'text',
     'settings' => array(
-      'default_image' => 0,
-      'uri_scheme' => 'public',
+      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'image',
+    'type' => 'text',
   );
 
   return $field_bases;

@@ -143,5 +143,5 @@ enable_modules() {
   drush en -y ctools admin_views date ds_extras ds_ui entity entityreference environment_indicator features field_group globalredirect
   drush en -y i18n l10n_update libraries pathauto strongarm token transliteration views views_bulk_operations xmlsitemap_node xmlsitemap_taxonomy
   # Enable our own custom stuff.
-  drush en -y reload_f5
+  drush en -y reload_f5 reload_media
 }

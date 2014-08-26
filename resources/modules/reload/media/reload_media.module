@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Reload Media feature.
+ */
+
+include_once 'reload_media.features.inc';

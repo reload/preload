@@ -1,0 +1,6 @@
+<?php
+
+function reload_editor_install() {
+
+
+}
