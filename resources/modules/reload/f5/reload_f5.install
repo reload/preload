@@ -15,7 +15,7 @@ function reload_f5_install() {
   $filtered_html_format = array(
     'format' => 'filtered_html',
     'name' => 'Filtered HTML',
-    'weight' => 0,
+    'weight' => 2,
     'filters' => array(
       // URL filter.
       'filter_url' => array(
@@ -46,7 +46,7 @@ function reload_f5_install() {
   $rich_text_format = array(
     'format' => 'rich_text',
     'name' => 'Rich text',
-    'weight' => 0,
+    'weight' => 1,
     'filters' => array(
       // URL filter.
       'filter_url' => array(
