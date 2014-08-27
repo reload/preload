@@ -64,7 +64,7 @@ function reload_article_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'file_entity',
         'settings' => array(
-          'file_view_mode' => 'default',
+          'file_view_mode' => 'wysiwyg',
         ),
         'type' => 'file_rendered',
         'weight' => 0,

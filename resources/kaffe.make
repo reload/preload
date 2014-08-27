@@ -20,7 +20,9 @@ projects[] = entityreference
 projects[] = features
 projects[] = field_collection
 projects[] = field_group
-projects[] = file_entity
+projects[file_entity][subdir] = contrib
+projects[file_entity][version] = 2.0-alpha3
+
 projects[] = globalredirect
 projects[] = google_analytics
 projects[] = i18n
@@ -84,7 +86,7 @@ projects[ultimate_cron][subdir] = development
 
 ; Libraries
 libraries[ckeditor][download][type] = get
-libraries[ckeditor][download][url] = http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.4.3/ckeditor_4.4.3_full.zip
+libraries[ckeditor][download][url] = http://download.cksource.com/CKEditor/CKEditor/CKEditor%203.6.6.2/ckeditor_3.6.6.2.zip
 libraries[ckeditor][directory_name] = ckeditor
 libraries[ckeditor][destination] = libraries
 
