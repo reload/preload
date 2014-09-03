@@ -33,11 +33,15 @@ echo ' '
     echo "Site name set to $site_name. Cannot be empty."
   fi
 
-  # Remove whitespace and concatenate the email into the format:
-  # info+sitename@reload.dk. Also make a feeble attempt to get rid of "non-email"
-  # characters.
-  site_email=${site_name/ /}
-  site_email=info+${site_email/[æøåÆØÅ]/}@reload.dk
+  echo "Insert your admin email address:"
+    read site_mail
+
+    if [ -z "$site_mail" ]
+    then
+      site_mail='info+siteinstall@reload.dk'
+      echo "The email is sent to $site_mail."
+    fi
+
 
   echo "\$conf['site_name'] = '$site_name';" >> sites/default/common.settings.php
 
@@ -51,7 +55,7 @@ echo ' '
 
 
   # Now install the site.
-  drush site-install minimal --locale=da --site-name="$site_name" --account-mail=$site_email --account-name=$KAFFE_D_USER --account-pass=$KAFFE_D_PWD --db-url=$db_url
+  drush site-install minimal --locale=da --site-name="$site_name" --account-mail=$site_mail --account-name=$KAFFE_D_USER --account-pass=$KAFFE_D_PWD --db-url=$db_url
 
 
   clear
