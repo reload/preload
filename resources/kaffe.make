@@ -42,6 +42,7 @@ projects[media_soundcloud][subdir] = contrib
 projects[media_23video][subdir] = contrib
 
 projects[] = node_clone
+projects[] = node_clone_tab
 
 projects[] = pathauto
 projects[] = pathologic
