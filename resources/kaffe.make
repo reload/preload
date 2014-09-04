@@ -32,6 +32,22 @@ projects[] = jquery_update
 projects[] = link
 projects[] = linkit
 projects[] = login_destination
+
+projects[manual-crop][type] = module
+projects[manual-crop][subdir] = contrib
+projects[manual-crop][download][type] = git
+projects[manual-crop][download][revision] = a9215bff5f277ef7f176cb8ab4d0e36cfc363d48
+
+libraries[imagesloaded][download][type] = get
+libraries[imagesloaded][download][url] = https://github.com/desandro/imagesloaded/archive/v2.1.2.tar.gz
+libraries[imagesloaded][directory_name] = jquery.imagesloaded
+libraries[imagesloaded][destination] = libraries
+
+libraries[imgareaselect][download][type] = get
+libraries[imgareaselect][download][url] = http://odyniec.net/projects/imgareaselect/jquery.imgareaselect-0.9.10.zip
+libraries[imgareaselect][directory_name] = jquery.imgareaselect
+libraries[imgareaselect][destination] = libraries
+
 projects[] = metatag
 projects[media][subdir] = contrib
 projects[media][version] = 2.0-alpha3

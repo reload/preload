@@ -12,6 +12,17 @@ function reload_media_file_default_displays() {
 
   $file_display = new stdClass();
   $file_display->api_version = 1;
+  $file_display->name = 'image__wysiwyg__file_field_image';
+  $file_display->weight = 0;
+  $file_display->status = TRUE;
+  $file_display->settings = array(
+    'image_style' => 'main_image',
+    'image_link' => '',
+  );
+  $export['image__wysiwyg__file_field_image'] = $file_display;
+
+  $file_display = new stdClass();
+  $file_display->api_version = 1;
   $file_display->name = 'video__wysiwyg__media_23video_image';
   $file_display->weight = -43;
   $file_display->status = TRUE;
