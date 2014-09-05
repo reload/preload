@@ -33,10 +33,10 @@ projects[] = link
 projects[] = linkit
 projects[] = login_destination
 
-projects[manual-crop][type] = module
-projects[manual-crop][subdir] = contrib
-projects[manual-crop][download][type] = git
-projects[manual-crop][download][revision] = 332ffccb9f2492d689a77c75ef7c82432cd75281
+projects[manualcrop][type] = module
+projects[manualcrop][subdir] = contrib
+projects[manualcrop][download][type] = git
+projects[manualcrop][download][revision] = 332ffccb9f2492d689a77c75ef7c82432cd75281
 
 libraries[imagesloaded][download][type] = get
 libraries[imagesloaded][download][url] = https://github.com/desandro/imagesloaded/archive/v2.1.2.tar.gz
