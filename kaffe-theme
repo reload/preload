@@ -3,6 +3,8 @@
 cmd_default() {
   get_name
   write_files
+  drush en -y $theme_name
+  drush vset theme_default $theme_name
 }
 
 write_files() {
