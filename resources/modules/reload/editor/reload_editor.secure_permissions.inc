@@ -1,6 +1,8 @@
 <?php
 /**
- * @file Secure Permissions Data
+ * @file
+ * Secure Permissions Data
+ *
  * Module file for secure permissions in code.
  */
 
@@ -10,7 +12,7 @@
  * Create a secure_permissions_data module directory and place this function
  * in secure_permissions_data.module.
  *
- * @return
+ * @return array
  *   An array defining all the roles for the site.
  */
 function reload_editor_secure_permissions_roles() {
@@ -27,10 +29,10 @@ function reload_editor_secure_permissions_roles() {
  * Create a secure_permissions_data module directory and place this function
  * in secure_permissions_data.module.
  *
- * @param $role
+ * @param string $role
  *   The role for which the permissions are being requested.
  *
- * @return
+ * @return array
  *   An array defining all the permissions for the site.
  */
 function reload_editor_secure_permissions($role) {
