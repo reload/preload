@@ -86,6 +86,7 @@ setup_files_dir_and_rights() {
   # Make the files directory.
   mkdir -p sites/default/files
   # Set file rights.
+  echo "About to set ownership on sites/default using sudo."
   sudo chown -R  "$(whoami):$webserver_group" sites/default
   chmod -R g+rw sites/default
   echo "Set up files folder and file rights."
