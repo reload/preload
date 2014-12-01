@@ -55,7 +55,7 @@ echo ' '
 
 
   # Now install the site.
-  drush site-install minimal --locale=da --site-name="$site_name" --account-mail=$site_mail --account-name=$KAFFE_D_USER --account-pass=$KAFFE_D_PWD --db-url=$db_url
+  drush site-install minimal --locale=da --site-name="$site_name" --account-mail="$site_mail" --account-name="$KAFFE_D_USER" --account-pass="$KAFFE_D_PWD" --db-url="$db_url"
 
 
   clear
@@ -68,7 +68,7 @@ echo ' '
     echo "Remember to configure it later on"
   else
     drush en -y googleanalytics
-    drush vset googleanalytics_account $ga_key
+    drush vset googleanalytics_account "$ga_key"
   fi
 
   clear
@@ -112,8 +112,8 @@ echo ' '
 
 drush_scripts() {
   # Run some code via drush.
-  drush scr $KAFFE_DIR/resources/scripts/user_roles.drush.php
-  drush scr $KAFFE_DIR/resources/scripts/vars.drush.php
+  drush scr "$KAFFE_DIR/resources/scripts/user_roles.drush.php"
+  drush scr "$KAFFE_DIR/resources/scripts/vars.drush.php"
 }
 
 drush_scripts_post() {
@@ -127,7 +127,7 @@ drush_scripts_post() {
     while true; do
       read -p "Choose yes of no (y/n): " yn
       case $yn in
-        [Yy]* ) drush scr $KAFFE_DIR/resources/scripts/create_default_editor_user.drush.php;break;;
+        [Yy]* ) drush scr "$KAFFE_DIR/resources/scripts/create_default_editor_user.drush.php";break;;
         [Nn]* ) break;;
         * ) echo "Please answer yes or no (y/n)";;
       esac
