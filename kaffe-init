@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 cmd_default() {
   get_web_server_group
@@ -16,12 +16,16 @@ get_web_server_group() {
   # If the group name is not in the settings file, then ask for the group.
   if [ -z "$webserver_group" ]
   then
-    case $( uname -s ) in
-      # Mac? Probably _www
-      Darwin) webserver_group='_www';;
-      # Other? Hmm. Try this.
-      *)     webserver_group='www-data';;
-    esac
+    # First let us try to look up the group name.
+    webserver_group=$(apachectl -S 2> /dev/null | grep -E ^Group | sed -e 's/.*name="\([^"]*\)".*/\1/'; test "${PIPESTATUS[1]}" -eq 0)
+    if [ "$?" -ne "0" ]; then
+      case $( uname -s ) in
+        # Mac? Probably _www
+        Darwin) webserver_group='_www2';;
+        # Other? Hmm. Try this.
+        *)     webserver_group='www-data';;
+      esac
+    fi
 
     while true; do
         read -p "Is the name of your web server group $webserver_group? " yn
