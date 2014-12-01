@@ -9,7 +9,7 @@ cmd_default() {
 
 write_files() {
   # Copy theme files.
-  cp -r  "$KAFFE_DIR/resources/themes/STARTERTHEME sites/all/themes/$theme_name"
+  cp -r  "$KAFFE_DIR/resources/themes/STARTERTHEME" "sites/all/themes/$theme_name"
   for file in $(find "sites/all/themes/$theme_name")
   do
     if [ -f "$file" ]
