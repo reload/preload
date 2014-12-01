@@ -21,7 +21,7 @@ projects[] = features
 projects[] = field_collection
 projects[] = field_group
 projects[file_entity][subdir] = contrib
-projects[file_entity][version] = 2.0-alpha3
+projects[file_entity][version] = 2.0-beta1
 
 projects[] = globalredirect
 projects[] = google_analytics
@@ -50,9 +50,12 @@ libraries[imgareaselect][destination] = libraries
 
 projects[] = metatag
 projects[media][subdir] = contrib
-projects[media][version] = 2.0-alpha3
+projects[media][version] = 2.0-alpha4
 
 projects[media_youtube][subdir] = contrib
+; Fix media_access(), see https://www.drupal.org/node/1823376#comment-8260713.
+projects[media_youtube][patch][1823376] = https://www.drupal.org/files/issues/provide-access-wrapper-1823376-6.patch
+
 projects[media_vimeo][subdir] = contrib
 projects[media_soundcloud][subdir] = contrib
 projects[media_23video][subdir] = contrib
@@ -86,7 +89,8 @@ projects[wysiwyg][version] = 2.2
 ;projects[wysiwyg][patch][] = https://www.drupal.org/files/wysiwyg-ckeditor-4.1853550.136.patch
 ; The above patch is against dev. Here is one rerolled to 2.2
 projects[wysiwyg][patch][] = https://www.drupal.org/files/wysiwyg-ckeditor-4.1853550.172-do-not-test.patch
-
+; Avoid "Warning: file_get_contents from 7.x-2.1 to 7.x-2.2"
+projects[wysiwyg][patch][1802394] = https://www.drupal.org/files/wysiwyg-1802394-4.patch
 
 
 ; Development related modules
