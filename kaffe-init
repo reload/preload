@@ -38,7 +38,7 @@ get_web_server_user() {
 
 do_make() {
   # Copy the make file to the drupal-to-be root.
-  cp $KAFFE_DIR/resources/kaffe.make .
+  cp "$KAFFE_DIR/resources/kaffe.make" .
 
   # Run the make file this once like God intended make files to be run.
   drush make kaffe.make .
@@ -48,9 +48,9 @@ do_make() {
   rm kaffe.make
 
   # Get Drupal version number so we can download a translation.
-  drupal_version=`grep --max-count=1 Drupal CHANGELOG.txt | sed 's/Drupal\ \([0-9]\.[0-9]*\).*$/\1/'`
+  drupal_version=$(grep --max-count=1 Drupal CHANGELOG.txt | sed 's/Drupal\ \([0-9]\.[0-9]*\).*$/\1/')
   # Now download it.
-  curl "http://ftp.drupal.org/files/translations/7.x/drupal/drupal-${drupal_version}.da.po" -o profiles/minimal/translations/drupal-${drupal_version}.da.po
+  curl "http://ftp.drupal.org/files/translations/7.x/drupal/drupal-${drupal_version}.da.po" -o "profiles/minimal/translations/drupal-${drupal_version}.da.po"
   echo "Downloaded translations."
 }
 
@@ -59,7 +59,7 @@ write_settings_files() {
   # default.settings.php. The reason we don't just write to settings.php is that
   # when drupal is installed the file will be overwritten with
   # default.settings.php
-cat <<- EOF > temp.txt
+  cat <<- EOF > temp.txt
 <?php
 
 // Include our settings. Comment out dev on relevant platforms, but always leave
@@ -82,30 +82,30 @@ setup_files_dir_and_rights() {
   # Make the files directory.
   mkdir -p sites/default/files
   # Set file rights.
-  sudo chown -R  $(whoami):$webserver_user sites/default
+  sudo chown -R  "$(whoami):$webserver_user" sites/default
   chmod -R g+rw sites/default
   echo "Set up files folder and file rights."
 }
 
 copy_conf_files() {
-  cp $KAFFE_DIR/resources/circle/circle.yml .
-  cat $KAFFE_DIR/resources/git/gitignore >> .gitignore
-  cp $KAFFE_DIR/resources/scrutinizer/.scrutinizer.yml .scrutinizer.yml
+  cp "$KAFFE_DIR/resources/circle/circle.yml" .
+  cat "$KAFFE_DIR/resources/git/gitignore" >> .gitignore
+  cp "$KAFFE_DIR/resources/scrutinizer/.scrutinizer.yml" .scrutinizer.yml
 }
 
 copy_modules() {
-  cp -r $KAFFE_DIR/resources/modules/reload sites/all/modules/
+  cp -r "$KAFFE_DIR/resources/modules/reload" sites/all/modules/
   # If there is a variable in the ~/.lav-kaffe pointing to a local folder with
   # modules, then symlink to that. Useful for devel, stage_file_proxy,
   # honeybadger, or bad_judgement.
-  if [ ! -z $localmodules ]
+  if [ ! -z "$localmodules" ]
   then
     # Use ZZ prefix so that the modules in the folder are loaded last. The
     # modules are loaded alphabetically if not specifically weighted.
-    ln -s $localmodules sites/all/modules/contrib/ZZ_SHARED_MODULES
+    ln -s "$localmodules" sites/all/modules/contrib/ZZ_SHARED_MODULES
   fi
 }
 
 copy_patches_folder() {
-  cp -r $KAFFE_DIR/resources/patches sites/all/modules/
+  cp -r "$KAFFE_DIR/resources/patches" sites/all/modules/
 }
