@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cmd_default() {
-  get_web_server_user
+  get_web_server_group
   do_make
   write_settings_files
   setup_files_dir_and_rights
@@ -10,29 +10,29 @@ cmd_default() {
   copy_patches_folder
 }
 
-get_web_server_user() {
+get_web_server_group() {
 
-  # Get the webserver user.
-  # If the user name is not in the settings file, then ask for the user.
-  if [ -z "$webserver_user" ]
+  # Get the web server group.
+  # If the group name is not in the settings file, then ask for the group.
+  if [ -z "$webserver_group" ]
   then
     case $( uname -s ) in
       # Mac? Probably _www
-      Darwin) webserver_user='_www';;
+      Darwin) webserver_group='_www';;
       # Other? Hmm. Try this.
-      *)     webserver_user='www-data';;
+      *)     webserver_group='www-data';;
     esac
 
     while true; do
-        read -p "Is the name of your web server user $webserver_user? " yn
+        read -p "Is the name of your web server group $webserver_group? " yn
         case $yn in
             [Yy]* ) break;;
-            [Nn]* ) echo "Please enter the name of the web server user on this machine: ";read webserver_user;break;;
+            [Nn]* ) echo "Please enter the name of the web server group on this machine: ";read webserver_group;break;;
             * ) echo "Please answer yes or no.";;
         esac
     done
-    # Save the web server user to the settings file.
-    echo "webserver_user=$webserver_user" >> ~/.lav-kaffe
+    # Save the web server group to the settings file.
+    echo "webserver_group=$webserver_group" >> ~/.lav-kaffe
   fi
 }
 
@@ -82,7 +82,7 @@ setup_files_dir_and_rights() {
   # Make the files directory.
   mkdir -p sites/default/files
   # Set file rights.
-  sudo chown -R  "$(whoami):$webserver_user" sites/default
+  sudo chown -R  "$(whoami):$webserver_group" sites/default
   chmod -R g+rw sites/default
   echo "Set up files folder and file rights."
 }
