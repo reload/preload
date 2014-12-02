@@ -78,11 +78,13 @@ projects[] = smart_trim
 projects[] = strongarm
 projects[] = token
 projects[] = transliteration
+projects[] = ultimate_cron
 projects[] = variable
 projects[] = views
 projects[] = views_bulk_operations
-projects[] = xmlsitemap
+projects[] = watchdog_filtering
 projects[] = webform
+projects[] = xmlsitemap
 
 projects[wysiwyg][subdir] = contrib
 projects[wysiwyg][version] = 2.2
