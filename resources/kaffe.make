@@ -104,6 +104,7 @@ projects[module_filter][subdir] = development
 projects[devel_themer][subdir] = development
 projects[livereload][subdir] = development
 projects[ultimate_cron][subdir] = development
+projects[watchdog_filtering][subdir] = development
 
 ; Libraries
 libraries[ckeditor][download][type] = get
