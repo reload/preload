@@ -21,7 +21,7 @@ get_web_server_group() {
     if [ "$?" -ne "0" ]; then
       case $( uname -s ) in
         # Mac? Probably _www
-        Darwin) webserver_group='_www2';;
+        Darwin) webserver_group='_www';;
         # Other? Hmm. Try this.
         *)     webserver_group='www-data';;
       esac
