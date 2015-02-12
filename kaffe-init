@@ -120,19 +120,19 @@ apply_patches() {
 
   drush bandaid-patch \
   --home=https://www.drupal.org/node/2188491 \
-  --reason="Unkown" \
+  --reason="Fix duplicate roles bug" \
   https://www.drupal.org/files/issues/2188491-features-multilingual-2.patch \
   sites/all/modules/contrib/secure_permissions
 
   drush bandaid-patch \
   --home=https://www.drupal.org/node/1744274 \
-  --reason="Unkown" \
+  --reason="Fix duplicate roles bug" \
   https://www.drupal.org/files/secure_permissions-duplicate_role_exception-1744274-4.patch \
   sites/all/modules/contrib/secure_permissions
 
   drush bandaid-patch \
   --home=https://www.drupal.org/node/1853550 \
-  --reason="Unkown" \
+  --reason="Add support for CKEditor 4" \
   https://www.drupal.org/files/wysiwyg-ckeditor-4.1853550.172-do-not-test.patch \
   sites/all/modules/contrib/wysiwyg
 
