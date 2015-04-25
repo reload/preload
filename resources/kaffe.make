@@ -52,9 +52,7 @@ projects[] = metatag
 projects[media][subdir] = contrib
 projects[media][version] = 2.0-alpha4
 
-projects[media_youtube][subdir] = contrib
-; Fix media_access(), see https://www.drupal.org/node/1823376#comment-8260713.
-projects[media_youtube][patch][1823376] = https://www.drupal.org/files/issues/provide-access-wrapper-1823376-6.patch
+projects[] = media_youtube
 
 projects[media_vimeo][subdir] = contrib
 projects[media_soundcloud][subdir] = contrib
