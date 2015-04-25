@@ -148,5 +148,5 @@ enable_modules() {
   drush en -y i18n l10n_update libraries pathauto strongarm token transliteration views views_bulk_operations xmlsitemap_node xmlsitemap_taxonomy
   drush en -y manualcrop watchdog_filtering
   # Enable our own custom stuff.
-  drush en -y reload_f5 reload_media
+  drush en -y reload_f5 reload_media reload_jira_update
 }

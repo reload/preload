@@ -86,6 +86,16 @@ projects[] = watchdog_filtering
 projects[] = webform
 projects[] = xmlsitemap
 
+projects[] = jira_rest
+projects[] = jira_rest_rules
+projects[update_rules][patch][2477835] = https://www.drupal.org/files/issues/update_rules-release_link_for_recommended_release-2477835-1.patch
+
+projects[reload_jira_update][type] = module
+projects[reload_jira_update][subdir] = reload
+projects[reload_jira_update][download][type] = git
+projects[reload_jira_update][download][version] = 7.x-1.x
+projects[reload_jira_update][download][url] = git@github.com:reload/reload_jira_update.git
+
 projects[wysiwyg][subdir] = contrib
 projects[wysiwyg][version] = 2.2
 ;projects[wysiwyg][patch][] = https://www.drupal.org/files/wysiwyg-ckeditor-4.1853550.136.patch
