@@ -103,7 +103,6 @@ projects[wysiwyg][patch][1802394] = https://www.drupal.org/files/wysiwyg-1802394
 projects[devel][subdir] = development
 projects[diff][subdir] = development
 projects[environment_indicator][subdir] = development
-projects[environment_indicator][version] = 2.x-dev
 projects[stage_file_proxy][subdir] = development
 projects[masquerade][subdir] = development
 projects[module_filter][subdir] = development
