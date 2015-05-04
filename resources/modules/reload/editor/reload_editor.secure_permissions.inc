@@ -72,6 +72,7 @@ function reload_editor_secure_permissions($role) {
       'edit own image files',
       'edit own video files',
       'schedule (un)publishing of nodes',
+      'upload via file resup',
       'use text format filtered_html',
       'use text format rich_text',
       'view own files',
