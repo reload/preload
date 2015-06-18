@@ -35,9 +35,3 @@ $conf['user_register'] = 0;
 // Transliteration module.
 $conf['transliteration_file_uploads'] = TRUE;
 $conf['transliteration_file_lowercase'] = TRUE;
-
-// Display Suite.
-$conf['ds_extras_switch_field'] = TRUE;
-$conf['ds_extras_hide_page_title'] = TRUE;
-$conf['ds_extras_field_template'] = TRUE;
-$conf['ft-default'] = 'theme_ds_field_minimal';
