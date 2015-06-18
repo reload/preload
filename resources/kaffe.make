@@ -55,9 +55,6 @@ projects[media_vimeo][subdir] = contrib
 projects[media_soundcloud][subdir] = contrib
 projects[media_23video][subdir] = contrib
 
-projects[] = node_clone
-projects[] = node_clone_tab
-
 projects[] = pathauto
 projects[] = pathologic
 projects[] = rules
@@ -78,7 +75,6 @@ projects[] = variable
 projects[] = views
 projects[] = views_bulk_operations
 projects[] = watchdog_filtering
-projects[] = webform
 projects[] = xmlsitemap
 
 projects[] = jira_rest
