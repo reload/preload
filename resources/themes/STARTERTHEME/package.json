@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "devDependencies": {
     "grunt": "latest",
-    "grunt-contrib-compass": "latest",
-    "grunt-contrib-watch": "latest",
-    "grunt-contrib-copy": "latest",
-    "grunt-contrib-jshint": "latest",
-    "grunt-contrib-uglify": "latest"
+    "node-sass": "latest",
+    "node-bourbon": "latest",
+    "grunt-sass": "latest",
+    "grunt-contrib-watch": "latest"
   }
 }
