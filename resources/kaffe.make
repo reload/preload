@@ -13,7 +13,6 @@ projects[] = admin_views
 projects[] = chosen
 projects[] = ctools
 projects[] = date
-projects[] = ds
 projects[] = entity
 projects[] = entityreference
 projects[] = features
