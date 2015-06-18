@@ -85,6 +85,16 @@ echo ' '
 
   clear
   echo "\n"
+  echo "Please select your type of PHP Cache \n1. OPcache\n2. APC"
+  read -p "Please select: " spam
+    case $spam in
+      [1]* ) drush dl -y opcache && drush en -y opcache;break;;
+      [2]* ) drush dl -y apc && drush en -y apc;break;;
+      * ) echo "No PHP Cache selected";;
+    esac
+
+  clear
+  echo "\n"
   echo "Please select your type of spam protection \n1. Mollom\n2. Captcha/reCaptcha\n3. Honeypot"
   read -p "Please select: " spam
     case $spam in

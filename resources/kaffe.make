@@ -7,7 +7,6 @@ defaults[projects][subdir] = "contrib"
 projects[] = drupal
 
 projects[] = advagg
-projects[] = apc
 projects[admin_menu][subdir] = contrib
 projects[admin_menu][version] = 3.x-dev
 projects[] = admin_views
