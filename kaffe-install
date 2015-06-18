@@ -95,6 +95,17 @@ echo ' '
 
   clear
   echo "\n"
+  echo "Please select your type of spam protection \n1. Mollom\n2. Captcha/reCaptcha\n3. Honeypot"
+  read -p "Please select: " spam
+    case $spam in
+      [1]* ) drush dl -y mollom && drush en -y mollom;break;;
+      [2]* ) drush dl -y captcha recaptcha && drush en -y captcha recaptcha;break;;
+      [3]* ) drush dl -y honeypot && drush en -y honeypot;break;;
+      * ) echo "No spam protection selected";;
+    esac
+
+  clear
+  echo "\n"
   echo "Do you want to use a preconfigured article content type?"
   while true; do
     read -p "Choose yes of no (y/n): " yn
