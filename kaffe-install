@@ -131,6 +131,9 @@ drush_scripts_post() {
 }
 
 enable_modules() {
+  # Clear before running the enable scripts, so the user doesn't think this is
+  # a part of the last question they answered.
+  clear
   # Enable core modules we want.
   drush en -y block contextual image list menu number options path taxonomy dblog toolbar field_ui file rdf
   # Enable admin theme.
