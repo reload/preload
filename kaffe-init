@@ -113,12 +113,6 @@ copy_modules() {
 
 apply_patches() {
   drush bandaid-patch \
-  --home=https://www.drupal.org/node/1823376 \
-  --reason="Fix media_access(), see https://www.drupal.org/node/1823376#comment-8260713." \
-  https://www.drupal.org/files/issues/provide-access-wrapper-1823376-6.patch \
-  sites/all/modules/contrib/media_youtube
-
-  drush bandaid-patch \
   --home=https://www.drupal.org/node/2188491 \
   --reason="Fix duplicate roles bug" \
   https://www.drupal.org/files/issues/2188491-features-multilingual-2.patch \
