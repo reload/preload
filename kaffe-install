@@ -77,7 +77,7 @@ echo ' '
   while true; do
     read -p "Choose yes of no (y/n): " yn
     case $yn in
-      [Yy]* ) drush en -y devel diff stage_file_proxy reload_dev module_filter;break;;
+      [Yy]* ) drush en -y devel diff stage_file_proxy module_filter;break;;
       [Nn]* ) echo "Alrighty then!";break;;
       * ) echo "Please answer yes or no (y/n)";;
     esac
