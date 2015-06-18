@@ -66,6 +66,7 @@ projects[] = strongarm
 projects[] = token
 projects[] = transliteration
 projects[] = ultimate_cron
+projects[] = update_rules
 projects[] = variable
 projects[] = views
 projects[] = views_bulk_operations
@@ -74,7 +75,6 @@ projects[] = xmlsitemap
 
 projects[] = jira_rest
 projects[] = jira_rest_rules
-projects[update_rules][patch][2477835] = https://www.drupal.org/files/issues/update_rules-release_link_for_recommended_release-2477835-1.patch
 
 projects[reload_jira_update][type] = module
 projects[reload_jira_update][subdir] = reload
