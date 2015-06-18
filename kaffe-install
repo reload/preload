@@ -112,24 +112,6 @@ drush_scripts() {
   drush scr "$KAFFE_DIR/resources/scripts/vars.drush.php"
 }
 
-drush_scripts_post() {
-  # Run some code via drush.
-
-  drush en -y reload_editor
-  drush secure-permissions-rebuild
-  clear
-    echo "\n"
-    echo "Do you want an editor user to be created (user:editor / pass:editor)?"
-    while true; do
-      read -p "Choose yes of no (y/n): " yn
-      case $yn in
-        [Yy]* ) drush scr "$KAFFE_DIR/resources/scripts/create_default_editor_user.drush.php";break;;
-        [Nn]* ) break;;
-        * ) echo "Please answer yes or no (y/n)";;
-      esac
-    done
-}
-
 enable_modules() {
   # Clear before running the enable scripts, so the user doesn't think this is
   # a part of the last question they answered.
@@ -148,4 +130,22 @@ enable_modules() {
   drush en -y manualcrop watchdog_filtering file_resup
   # Enable our own custom stuff.
   drush en -y reload_f5 reload_media reload_jira_update
+}
+
+drush_scripts_post() {
+  # Run some code via drush.
+
+  drush en -y reload_editor
+  drush secure-permissions-rebuild
+  clear
+    echo "\n"
+    echo "Do you want an editor user to be created (user:editor / pass:editor)?"
+    while true; do
+      read -p "Choose yes of no (y/n): " yn
+      case $yn in
+        [Yy]* ) drush scr "$KAFFE_DIR/resources/scripts/create_default_editor_user.drush.php";break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no (y/n)";;
+      esac
+    done
 }
