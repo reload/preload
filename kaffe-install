@@ -67,7 +67,7 @@ echo ' '
   then
     echo "Remember to configure it later on"
   else
-    drush en -y googleanalytics
+    drush dl -y google_analytics && drush en -y googleanalytics
     drush vset googleanalytics_account "$ga_key"
   fi
 
@@ -82,6 +82,16 @@ echo ' '
       * ) echo "Please answer yes or no (y/n)";;
     esac
   done
+
+  clear
+  echo "\n"
+  echo "Please select your type of PHP Cache \n1. OPcache\n2. APC"
+  read -p "Please select: " spam
+    case $spam in
+      [1]* ) drush dl -y opcache && drush en -y opcache;break;;
+      [2]* ) drush dl -y apc && drush en -y apc;break;;
+      * ) echo "No PHP Cache selected";;
+    esac
 
   clear
   echo "\n"
@@ -105,15 +115,32 @@ echo ' '
       * ) echo "Please answer yes or no (y/n)";;
     esac
   done
-
-
-
 }
 
 drush_scripts() {
   # Run some code via drush.
   drush scr "$KAFFE_DIR/resources/scripts/user_roles.drush.php"
   drush scr "$KAFFE_DIR/resources/scripts/vars.drush.php"
+}
+
+enable_modules() {
+  # Clear before running the enable scripts, so the user doesn't think this is
+  # a part of the last question they answered.
+  clear
+  # Enable core modules we want.
+  drush en -y block contextual image list menu number options path taxonomy dblog toolbar field_ui file rdf
+  # Enable admin theme.
+  drush en -y seven
+  # Get rid of silly blocks for seven
+  drush sql-query "UPDATE block SET region = '-1' WHERE theme = 'seven' AND delta IN('login', 'navigation', 'management')"
+  # Enable contrib modules - do it in several rounds to avoid timeouts.
+  drush dis -y toolbar && drush en -y admin_menu_toolbar
+  drush en -y jquery_update media wysiwyg linkit pathologic chosen scheduler link smart_trim page_manager
+  drush en -y ctools admin_views date ds_extras ds_ui entity entityreference environment_indicator features field_group globalredirect
+  drush en -y i18n l10n_update libraries pathauto strongarm token transliteration views views_bulk_operations xmlsitemap_node xmlsitemap_taxonomy
+  drush en -y manualcrop watchdog_filtering file_resup ultimate_cron
+  # Enable our own custom stuff.
+  drush en -y reload_f5 reload_media reload_jira_update
 }
 
 drush_scripts_post() {
@@ -132,21 +159,4 @@ drush_scripts_post() {
         * ) echo "Please answer yes or no (y/n)";;
       esac
     done
-}
-
-enable_modules() {
-  # Enable core modules we want.
-  drush en -y block contextual image list menu number options path taxonomy dblog toolbar field_ui file rdf
-  # Enable admin theme.
-  drush en -y seven
-  # Get rid of silly blocks for seven
-  drush sql-query "UPDATE block SET region = '-1' WHERE theme = 'seven' AND delta IN('login', 'navigation', 'management')"
-  # Enable contrib modules - do it in several rounds to avoid timeouts.
-  drush dis -y toolbar && drush en -y admin_menu_toolbar shortcut ultimate_cron
-  drush en -y webform jquery_update media wysiwyg linkit pathologic chosen scheduler link clone node_clone_tab smart_trim page_manager
-  drush en -y ctools admin_views date ds_extras ds_ui entity entityreference environment_indicator features field_group globalredirect
-  drush en -y i18n l10n_update libraries pathauto strongarm token transliteration views views_bulk_operations xmlsitemap_node xmlsitemap_taxonomy
-  drush en -y manualcrop watchdog_filtering file_resup
-  # Enable our own custom stuff.
-  drush en -y reload_f5 reload_media reload_jira_update
 }

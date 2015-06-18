@@ -7,14 +7,12 @@ defaults[projects][subdir] = "contrib"
 projects[] = drupal
 
 projects[] = advagg
-projects[] = apc
 projects[admin_menu][subdir] = contrib
 projects[admin_menu][version] = 3.x-dev
 projects[] = admin_views
 projects[] = chosen
 projects[] = ctools
 projects[] = date
-projects[] = ds
 projects[] = entity
 projects[] = entityreference
 projects[] = features
@@ -24,7 +22,6 @@ projects[file_entity][subdir] = contrib
 projects[file_entity][version] = 2.0-beta1
 
 projects[] = globalredirect
-projects[] = google_analytics
 projects[] = file_resup
 projects[] = i18n
 projects[] = l10n_update
@@ -55,9 +52,6 @@ projects[media_vimeo][subdir] = contrib
 projects[media_soundcloud][subdir] = contrib
 projects[media_23video][subdir] = contrib
 
-projects[] = node_clone
-projects[] = node_clone_tab
-
 projects[] = pathauto
 projects[] = pathologic
 projects[] = rules
@@ -78,7 +72,6 @@ projects[] = variable
 projects[] = views
 projects[] = views_bulk_operations
 projects[] = watchdog_filtering
-projects[] = webform
 projects[] = xmlsitemap
 
 projects[] = jira_rest
