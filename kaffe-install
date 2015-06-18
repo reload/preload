@@ -115,9 +115,6 @@ echo ' '
       * ) echo "Please answer yes or no (y/n)";;
     esac
   done
-
-
-
 }
 
 drush_scripts() {
