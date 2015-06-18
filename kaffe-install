@@ -136,7 +136,7 @@ enable_modules() {
   # Enable contrib modules - do it in several rounds to avoid timeouts.
   drush dis -y toolbar && drush en -y admin_menu_toolbar
   drush en -y jquery_update media wysiwyg linkit pathologic chosen scheduler link smart_trim page_manager
-  drush en -y ctools admin_views date ds_extras ds_ui entity entityreference environment_indicator features field_group globalredirect
+  drush en -y ctools admin_views date entity entityreference environment_indicator features field_group globalredirect
   drush en -y i18n l10n_update libraries pathauto strongarm token transliteration views views_bulk_operations xmlsitemap_node xmlsitemap_taxonomy
   drush en -y manualcrop watchdog_filtering file_resup ultimate_cron
   # Enable our own custom stuff.
