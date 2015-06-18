@@ -67,7 +67,7 @@ echo ' '
   then
     echo "Remember to configure it later on"
   else
-    drush en -y googleanalytics
+    drush dl -y google_analytics && drush en -y googleanalytics
     drush vset googleanalytics_account "$ga_key"
   fi
 

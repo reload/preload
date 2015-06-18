@@ -22,7 +22,6 @@ projects[file_entity][subdir] = contrib
 projects[file_entity][version] = 2.0-beta1
 
 projects[] = globalredirect
-projects[] = google_analytics
 projects[] = file_resup
 projects[] = i18n
 projects[] = l10n_update
