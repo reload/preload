@@ -1,7 +1,0 @@
-name = Development
-description = Tweaks for development use
-core = 7.x
-package = Reload
-dependencies[] = devel
-dependencies[] = diff
-features[features_api][] = api:2

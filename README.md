@@ -33,6 +33,3 @@ The site is now running with Bartik, and a good way to get started theming would
 
 Go to the root folder of your freshly created theme. Here you run `npm install`
 node package manager will then download the modules needed for grunt to perform it's tasks. The modules will be locate in `THEME/node_modules` when these modules are installed you should be able to run the grunt watcher `grunt watch`.
-
-One of the things to note here is that grunt compiles css in two folders `THEME/css` and `THEME/css_dev` the latteris not commited to the repository you create. It's merly for developers readability with comments. The module reload_f5 is replacing any css files in from `THEME/css` if a eqvilant is found in `THEME/css_dev`
-

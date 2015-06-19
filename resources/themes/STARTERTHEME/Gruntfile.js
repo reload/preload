@@ -1,66 +1,49 @@
-'use strict';
-
 module.exports = function (grunt) {
+  "use strict";
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    // Watch for changes and trigger compass with livereload on CSS files.
-    watch: {
-      scss: {
-        options: {
-          livereload: false
-        },
-        files: ['css/sass/*.scss'],
-        tasks: ['compass:dev','compass:prod']
+    sass: {
+      options: {
+        sourceMap: true,
+        outputStyle: 'expanded'
       },
-      css: {
-        files: ['css/*.css','css_dev/*.css'],
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'sass',
+          src: ['*.scss', '**/*.scss'],
+          dest: 'css',
+          ext: '.css',
+          extDot: 'last'
+        }],
         options: {
-          livereload: true
+          includePaths: require('node-bourbon').includePaths
         }
       }
     },
 
-    // Compass and SCSS
-    compass: {
-      options: {
-        httpPath: '/sites/all/themes/STARTERTHEME',
-        cssDir: 'css_dev',
-        sassDir: 'css/sass',
-        imagesDir: 'images',
-        javascriptsDir: 'scripts',
-        fontsDir: 'css/fonts',
-        assetCacheBuster: 'none'
+    watch: {
+      scss: {
+        files: ['sass/*.scss'],
+        tasks: ['sass']
       },
-      dev: {
+
+      css: {
+        files: ['css/*.css'],
         options: {
-          environment: 'development',
-          outputStyle: 'expanded',
-          relativeAssets: true,
-          raw: 'line_numbers = :true\n'
-        }
-      },
-      prod: {
-        options: {
-          environment: 'production',
-          outputStyle: 'compact',
-          force: true,
-          cssDir: 'css',
+          livereload: true
         }
       }
     }
   });
 
+  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-compass');
-
-  grunt.registerTask('build', [
-    'compass:prod'
-  ]);
 
   grunt.registerTask('default', [
-    'compass:dev',
+    'sass',
     'watch'
   ]);
 };
