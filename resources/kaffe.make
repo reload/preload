@@ -59,8 +59,6 @@ projects[] = search_api
 
 projects[secure_permissions][subdir] = contrib
 projects[secure_permissions][version] = 1.6
-projects[secure_permissions][patch][2188491] = https://www.drupal.org/files/issues/2188491-features-multilingual-2.patch
-projects[secure_permissions][patch][1744274] = https://www.drupal.org/files/secure_permissions-duplicate_role_exception-1744274-4.patch
 
 projects[] = scheduler
 projects[] = smart_trim
@@ -68,6 +66,7 @@ projects[] = strongarm
 projects[] = token
 projects[] = transliteration
 projects[] = ultimate_cron
+projects[] = update_rules
 projects[] = variable
 projects[] = views
 projects[] = views_bulk_operations
@@ -76,7 +75,6 @@ projects[] = xmlsitemap
 
 projects[] = jira_rest
 projects[] = jira_rest_rules
-projects[update_rules][patch][2477835] = https://www.drupal.org/files/issues/update_rules-release_link_for_recommended_release-2477835-1.patch
 
 projects[reload_jira_update][type] = module
 projects[reload_jira_update][subdir] = reload
@@ -86,11 +84,6 @@ projects[reload_jira_update][download][url] = git@github.com:reload/reload_jira_
 
 projects[wysiwyg][subdir] = contrib
 projects[wysiwyg][version] = 2.2
-;projects[wysiwyg][patch][1853550] = https://www.drupal.org/files/wysiwyg-ckeditor-4.1853550.136.patch
-; The above patch is against dev. Here is one rerolled to 2.2
-projects[wysiwyg][patch][1853550] = https://www.drupal.org/files/wysiwyg-ckeditor-4.1853550.172-do-not-test.patch
-; Avoid "Warning: file_get_contents from 7.x-2.1 to 7.x-2.2"
-projects[wysiwyg][patch][1802394] = https://www.drupal.org/files/wysiwyg-1802394-4.patch
 
 
 ; Development related modules

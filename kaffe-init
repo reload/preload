@@ -7,7 +7,7 @@ cmd_default() {
   setup_files_dir_and_rights
   copy_conf_files
   copy_modules
-  copy_patches_folder
+  apply_patches
 }
 
 get_web_server_group() {
@@ -111,6 +111,34 @@ copy_modules() {
   fi
 }
 
-copy_patches_folder() {
-  cp -r "$KAFFE_DIR/resources/patches" sites/all/modules/
+apply_patches() {
+  drush bandaid-patch \
+  --home=https://www.drupal.org/node/2188491 \
+  --reason="Fix duplicate roles bug" \
+  https://www.drupal.org/files/issues/2188491-features-multilingual-2.patch \
+  sites/all/modules/contrib/secure_permissions
+
+  drush bandaid-patch \
+  --home=https://www.drupal.org/node/1744274 \
+  --reason="Fix duplicate roles bug" \
+  https://www.drupal.org/files/secure_permissions-duplicate_role_exception-1744274-4.patch \
+  sites/all/modules/contrib/secure_permissions
+
+  drush bandaid-patch \
+  --home=https://www.drupal.org/node/1853550 \
+  --reason="Add support for CKEditor 4" \
+  https://www.drupal.org/files/wysiwyg-ckeditor-4.1853550.172-do-not-test.patch \
+  sites/all/modules/contrib/wysiwyg
+
+  drush bandaid-patch \
+  --home=https://www.drupal.org/node/1802394 \
+  --reason="Avoid \"Warning: file_get_contents from 7.x-2.1 to 7.x-2.2\"" \
+  https://www.drupal.org/files/wysiwyg-1802394-4.patch \
+  sites/all/modules/contrib/wysiwyg
+
+  drush bandaid-patch \
+  --home=https://www.drupal.org/node/2477835 \
+  --reason="Release link for recommended release" \
+  https://www.drupal.org/files/issues/update_rules-release_link_for_recommended_release-2477835-1.patch \
+  sites/all/modules/contrib/update_rules
 }
