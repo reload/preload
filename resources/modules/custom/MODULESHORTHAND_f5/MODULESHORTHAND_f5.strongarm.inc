@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * reload_f5.strongarm.inc
+ * MODULESHORTHAND_f5.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function reload_f5_strongarm() {
+function MODULESHORTHAND_f5_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();

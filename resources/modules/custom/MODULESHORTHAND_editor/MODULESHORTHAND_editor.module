@@ -1,0 +1,9 @@
+<?php
+/**
+ * @file
+ * Code for the Editor feature.
+ */
+
+include_once 'MODULESHORTHAND_editor.features.inc';
+
+require_once 'MODULESHORTHAND_editor.secure_permissions.inc';

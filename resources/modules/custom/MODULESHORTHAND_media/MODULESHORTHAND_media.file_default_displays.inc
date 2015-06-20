@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * reload_media.file_default_displays.inc
+ * MODULESHORTHAND_media.file_default_displays.inc
  */
 
 /**
  * Implements hook_file_default_displays().
  */
-function reload_media_file_default_displays() {
+function MODULESHORTHAND_media_file_default_displays() {
   $export = array();
 
   $file_display = new stdClass();

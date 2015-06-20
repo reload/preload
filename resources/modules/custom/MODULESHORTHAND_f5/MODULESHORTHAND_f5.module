@@ -5,13 +5,13 @@
  */
 
 
-include_once 'reload_f5.features.inc';
+include_once 'MODULESHORTHAND_f5.features.inc';
 
 
 /**
  * Implements hook_menu().
  */
-function reload_f5_menu() {
+function MODULESHORTHAND_f5_menu() {
   // Special item to use as path for menu items that shouldn't link.
   // Themes can override theme_menu_link to make it possible to have links that
   // don't link in menus.
@@ -35,23 +35,23 @@ function reload_f5_menu() {
   $items['admin/config/reload/f5'] = array(
     'title' => 'F5 tools',
     'access arguments' => array('access reload tools'),
-    'page callback' => 'reload_f5_view_settings_variables',
-    'file' => 'reload_f5.admin.inc',
+    'page callback' => 'MODULESHORTHAND_f5_view_settings_variables',
+    'file' => 'MODULESHORTHAND_f5.admin.inc',
   );
 
   $items['admin/config/reload/f5/settings-files'] = array(
     'title' => 'Setting files variables',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -1,
-    'file' => 'reload_f5.admin.inc',
+    'file' => 'MODULESHORTHAND_f5.admin.inc',
   );
 
   $items['admin/config/reload/f5/variable-overrides'] = array(
     'title' => 'Overridden variables',
     'access arguments' => array('access reload tools'),
-    'page callback' => 'reload_f5_overridden_variables_view',
+    'page callback' => 'MODULESHORTHAND_f5_overridden_variables_view',
     'type' => MENU_LOCAL_TASK,
-    'file' => 'reload_f5.admin.inc',
+    'file' => 'MODULESHORTHAND_f5.admin.inc',
   );
 
   return $items;
@@ -60,7 +60,7 @@ function reload_f5_menu() {
 /**
  * Implements hook_permission().
  */
-function reload_f5_permission() {
+function MODULESHORTHAND_f5_permission() {
   return array(
     'access reload tools' => array(
       'title' => t('Access reload tools'),

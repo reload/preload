@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * reload_media.features.field_instance.inc
+ * MODULESHORTHAND_media.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function reload_media_field_default_field_instances() {
+function MODULESHORTHAND_media_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance: 'file-image-field_file_image_alt_text'

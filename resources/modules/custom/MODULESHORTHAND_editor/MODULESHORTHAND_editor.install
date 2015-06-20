@@ -1,0 +1,6 @@
+<?php
+
+function MODULESHORTHAND_editor_install() {
+
+
+}

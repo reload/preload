@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * reload_article.features.field_instance.inc
+ * MODULESHORTHAND_article.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function reload_article_field_default_field_instances() {
+function MODULESHORTHAND_article_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance: 'node-article-body'
