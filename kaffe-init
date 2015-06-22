@@ -99,6 +99,7 @@ copy_conf_files() {
 }
 
 copy_modules() {
+  cp -r "$KAFFE_DIR/resources/modules/custom" sites/all/modules/
   cp -r "$KAFFE_DIR/resources/modules/reload" sites/all/modules/
   # If there is a variable in the ~/.lav-kaffe pointing to a local folder with
   # modules, then symlink to that. Useful for devel, stage_file_proxy,
