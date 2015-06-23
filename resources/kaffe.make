@@ -13,16 +13,21 @@ projects[] = admin_views
 projects[] = chosen
 projects[] = ctools
 projects[] = date
+projects[] = elements
+projects[] = email
 projects[] = entity
 projects[] = entityreference
 projects[] = features
+projects[] = fences
 projects[] = field_collection
 projects[] = field_group
+projects[] = field_placeholder
 projects[file_entity][subdir] = contrib
 projects[file_entity][version] = 2.0-beta1
 
-projects[] = globalredirect
 projects[] = file_resup
+projects[] = globalredirect
+projects[] = html5_tools
 projects[] = i18n
 projects[] = l10n_update
 projects[] = libraries
@@ -54,6 +59,13 @@ projects[media_23video][subdir] = contrib
 
 projects[] = pathauto
 projects[] = pathologic
+projects[] = placeholder
+
+libraries[imagesloaded][download][type] = get
+libraries[imagesloaded][download][url] = https://github.com/mathiasbynens/jquery-placeholder/archive/v2.1.2.tar.gz
+libraries[imagesloaded][directory_name] = placeholder
+libraries[imagesloaded][destination] = libraries
+
 projects[] = rules
 projects[] = search_api
 
@@ -63,6 +75,7 @@ projects[secure_permissions][version] = 1.6
 projects[] = scheduler
 projects[] = smart_trim
 projects[] = strongarm
+projects[] = telephone
 projects[] = token
 projects[] = transliteration
 projects[] = ultimate_cron
