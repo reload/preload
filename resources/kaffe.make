@@ -77,7 +77,7 @@ projects[] = jira_rest
 projects[] = jira_rest_rules
 
 projects[reload_jira_update][type] = module
-projects[reload_jira_update][subdir] = reload
+projects[reload_jira_update][subdir] = custom
 projects[reload_jira_update][download][type] = git
 projects[reload_jira_update][download][version] = 7.x-1.x
 projects[reload_jira_update][download][url] = git@github.com:reload/reload_jira_update.git
