@@ -21,7 +21,6 @@ projects[] = features
 projects[] = fences
 projects[] = field_collection
 projects[] = field_group
-projects[] = field_placeholder
 projects[file_entity][subdir] = contrib
 projects[file_entity][version] = 2.0-beta1
 

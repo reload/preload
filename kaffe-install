@@ -138,8 +138,7 @@ enable_modules() {
   drush en -y jquery_update media wysiwyg linkit pathologic chosen scheduler link smart_trim page_manager
   drush en -y ctools admin_views date entity entityreference environment_indicator features field_group globalredirect
   drush en -y i18n l10n_update libraries pathauto strongarm token transliteration views views_bulk_operations xmlsitemap_node xmlsitemap_taxonomy
-  drush en -y manualcrop watchdog_filtering file_resup ultimate_cron elements html5_tools placeholder field_placeholder i18n_field_placeholder
-  drush en -y telephone email fences
+  drush en -y manualcrop watchdog_filtering file_resup ultimate_cron elements html5_tools placeholder telephone email fences
   # Enable our own custom stuff.
   drush en -y reload_f5 reload_media reload_jira_update
 }
