@@ -119,6 +119,7 @@ libraries[chosen][download][url] = https://github.com/harvesthq/chosen/releases/
 libraries[chosen][directory_name] = chosen
 libraries[chosen][destination] = libraries
 
-libraries[deployotron][download][type] = get
-libraries[deployotron][download][url] = https://github.com/reload/deployotron/archive/1.2.zip
+libraries[deployotron][download][type] = git
+libraries[deployotron][download][url] = https://github.com/reload/deployotron.git
+libraries[deployotron][download][branch] = 'master'
 libraries[deployotron][destination] = drush
