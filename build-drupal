@@ -41,13 +41,13 @@ get_web_server_group() {
         esac
     done
     # Save the web server group to the settings file.
-    echo "webserver_group=$webserver_group" >> ~/.lav-kaffe
+    echo "webserver_group=$webserver_group" >> ~/.preload-build
   fi
 }
 
 do_make() {
   # Copy the make file to the drupal-to-be root.
-  cp "$PRELOAD_DIR/resources/kaffe.make" .
+  cp "$PRELOAD_DIR/resources/preload.make" .
 
   # Run the make file this once like God intended make files to be run.
   drush make preload.make .
@@ -105,7 +105,7 @@ copy_conf_files() {
 
 copy_modules() {
   cp -r "$PRELOAD_DIR/resources/modules/custom" sites/all/modules/
-  # If there is a variable in the ~/.lav-kaffe pointing to a local folder with
+  # If there is a variable in the ~/.preload-build pointing to a local folder with
   # modules, then symlink to that. Useful for devel, stage_file_proxy,
   # honeybadger, or bad_judgement.
   if [ ! -z "$localmodules" ]

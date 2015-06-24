@@ -1,8 +1,8 @@
 #!/bin/sh
 
-if [ -r ~/.lav-kaffe ];
+if [ -r ~/.preload-build ];
 then
-  . ~/.lav-kaffe
+  . ~/.preload-build
 fi
 
 # Username and password for user 1. High security is key ;-).
