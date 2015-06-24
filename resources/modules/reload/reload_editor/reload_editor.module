@@ -1,9 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Editor feature.
- */
-
-include_once 'reload_editor.features.inc';
-
-require_once 'reload_editor.secure_permissions.inc';

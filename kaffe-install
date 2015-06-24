@@ -3,6 +3,8 @@
 cmd_default() {
   site_install
   drush_scripts
+  move_custom_modules
+  enable_custom_modules
   enable_modules
   drush_scripts_post
 }
@@ -57,6 +59,16 @@ echo ' '
   # Now install the site.
   drush site-install minimal --locale=da --site-name="$site_name" --account-mail="$site_mail" --account-name="$KAFFE_D_USER" --account-pass="$KAFFE_D_PWD" --db-url="$db_url"
 
+  clear
+  # Get the shorthand of the custom modules.
+  echo "\n"
+  echo "What will be the shorthand for your custom modules? "
+  read module_shorthand
+
+  if [ -z "$module_shorthand" ]
+  then
+    echo "You have to supply a shorthand for custom modules."
+  fi
 
   clear
   echo "\n"
@@ -103,24 +115,56 @@ echo ' '
       [3]* ) drush dl -y honeypot && drush en -y honeypot;break;;
       * ) echo "No spam protection selected";;
     esac
-
-  clear
-  echo "\n"
-  echo "Do you want to use a preconfigured article content type?"
-  while true; do
-    read -p "Choose yes of no (y/n): " yn
-    case $yn in
-      [Yy]* ) drush en -y reload_article;break;;
-      [Nn]* ) break;;
-      * ) echo "Please answer yes or no (y/n)";;
-    esac
-  done
 }
 
 drush_scripts() {
   # Run some code via drush.
   drush scr "$KAFFE_DIR/resources/scripts/user_roles.drush.php"
   drush scr "$KAFFE_DIR/resources/scripts/vars.drush.php"
+}
+
+move_custom_modules() {
+  # Define the module placeholder to be replaced.
+  module_placeholder="MODULESHORTHAND"
+
+  # Rename custom modules.
+  for dir in $(find "sites/all/modules/custom"); do
+    if [[ -d $dir ]]; then
+      if [[ $(basename "$dir") == *$module_placeholder* ]]; then
+        tmp_name=${dir##*/}
+        mv $dir ${dir%$tmp_name}$module_shorthand${tmp_name#$module_placeholder}
+      fi
+    fi
+  done
+
+  # Rename files and replace placeholders inside.
+  for file in $(find "sites/all/modules/custom"); do
+    if [[ -f $file ]]; then
+      if [[ $(basename "$file") == *$module_placeholder* ]]; then
+        # Files with the module placeholder in the file
+        # content get it replaced.
+        perl -pi -e "s,$module_placeholder,$module_shorthand,g" "$file"
+
+        # Rename the file.
+        tmp_name=${file##*/}
+        mv $file ${file%$tmp_name}$module_shorthand${tmp_name#$module_placeholder}
+      fi
+    fi
+  done
+}
+
+enable_custom_modules() {
+  clear
+  echo "\n"
+  echo "Do you want to use a preconfigured article content type?"
+  while true; do
+    read -p "Choose yes of no (y/n): " yn
+    case $yn in
+      [Yy]* ) drush en -y $module_shorthand"_article";break;;
+      [Nn]* ) break;;
+      * ) echo "Please answer yes or no (y/n)";;
+    esac
+  done
 }
 
 enable_modules() {
@@ -140,13 +184,13 @@ enable_modules() {
   drush en -y i18n l10n_update libraries pathauto strongarm token transliteration views views_bulk_operations xmlsitemap_node xmlsitemap_taxonomy
   drush en -y manualcrop watchdog_filtering file_resup ultimate_cron
   # Enable our own custom stuff.
-  drush en -y reload_f5 reload_media reload_jira_update
+  drush en -y $module_shorthand"_f5" $module_shorthand"_media" reload_jira_update
 }
 
 drush_scripts_post() {
   # Run some code via drush.
 
-  drush en -y reload_editor
+  drush en -y $module_shorthand"_editor"
   drush secure-permissions-rebuild
   clear
     echo "\n"

@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * reload_article.strongarm.inc
+ * MODULESHORTHAND_article.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function reload_article_strongarm() {
+function MODULESHORTHAND_article_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();

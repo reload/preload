@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * reload_f5.linkit_profiles.inc
+ * MODULESHORTHAND_f5.linkit_profiles.inc
  */
 
 /**
  * Implements hook_default_linkit_profiles().
  */
-function reload_f5_default_linkit_profiles() {
+function MODULESHORTHAND_f5_default_linkit_profiles() {
   $export = array();
 
   $linkit_profile = new LinkitProfile();

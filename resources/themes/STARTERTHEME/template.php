@@ -38,7 +38,7 @@ function STARTERTHEME_menu_link(array $variables) {
 
   $output = l($element['#title'], $element['#href'], $element['#localized_options']);
 
-  // If the link is a nolink one (see hook_menu() in reload_f5.module), then
+  // If the link is a nolink one (see hook_menu() in F5 module), then
   // do some extra stuff and overwrite $output.
   if (preg_match('{<nolink>}', $element['#href'])) {
     $output = '<span>' . strip_tags($output) . '</span>';

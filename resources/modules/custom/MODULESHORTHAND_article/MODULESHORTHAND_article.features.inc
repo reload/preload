@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * reload_article.features.inc
+ * MODULESHORTHAND_article.features.inc
  */
 
 /**
  * Implements hook_ctools_plugin_api().
  */
-function reload_article_ctools_plugin_api($module = NULL, $api = NULL) {
+function MODULESHORTHAND_article_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
   }
@@ -16,7 +16,7 @@ function reload_article_ctools_plugin_api($module = NULL, $api = NULL) {
 /**
  * Implements hook_node_info().
  */
-function reload_article_node_info() {
+function MODULESHORTHAND_article_node_info() {
   $items = array(
     'article' => array(
       'name' => t('Artikel'),

@@ -4,4 +4,4 @@
  * Code for the Reload Media feature.
  */
 
-include_once 'reload_media.features.inc';
+include_once 'MODULESHORTHAND_media.features.inc';

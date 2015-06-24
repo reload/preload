@@ -8,8 +8,8 @@
 /**
  * Menu callback to show included settings file's variables.
  */
-function reload_f5_view_settings_variables() {
-  $settings_files = _reload_f5_get_our_setting_files();
+function MODULESHORTHAND_f5_view_settings_variables() {
+  $settings_files = _MODULESHORTHAND_f5_get_our_setting_files();
   $renderable = array();
   foreach ($settings_files as $filename => $path) {
     $renderable[] = array(
@@ -31,8 +31,8 @@ function reload_f5_view_settings_variables() {
  * @return string
  *   A table showing variables that are overriden in the database.
  */
-function reload_f5_overridden_variables_view() {
-  $settings_files = _reload_f5_get_our_setting_files();
+function MODULESHORTHAND_f5_overridden_variables_view() {
+  $settings_files = _MODULESHORTHAND_f5_get_our_setting_files();
   $db_vars = array_map('unserialize', db_query('SELECT name, value FROM {variable}')->fetchAllKeyed());
 
   $rows = array();
@@ -74,7 +74,7 @@ function reload_f5_overridden_variables_view() {
  * @return array
  *   Array containing file paths to settings files.
  */
-function _reload_f5_get_our_setting_files() {
+function _MODULESHORTHAND_f5_get_our_setting_files() {
   $settings_file = file_get_contents(conf_path() . '/settings.php');
   $matches = array();
   // Get the included settings files from the actual settings file.

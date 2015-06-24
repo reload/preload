@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * reload_editor.features.inc
+ * MODULESHORTHAND_editor.features.inc
  */
 
 /**
  * Implements hook_ctools_plugin_api().
  */
-function reload_editor_ctools_plugin_api($module = NULL, $api = NULL) {
+function MODULESHORTHAND_editor_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
   }

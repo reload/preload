@@ -15,7 +15,7 @@
  * @return array
  *   An array defining all the roles for the site.
  */
-function reload_editor_secure_permissions_roles() {
+function MODULESHORTHAND_editor_secure_permissions_roles() {
   return array(
     'anonymous user',
     'authenticated user',
@@ -35,7 +35,7 @@ function reload_editor_secure_permissions_roles() {
  * @return array
  *   An array defining all the permissions for the site.
  */
-function reload_editor_secure_permissions($role) {
+function MODULESHORTHAND_editor_secure_permissions($role) {
   $permissions = array(
     'anonymous user' => array(
       'access content',
