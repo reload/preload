@@ -2,9 +2,8 @@
 
 export KAFFE_DIR=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
 
-
 usage() {
-  echo "usage: kaffe-bullet <subcommand>"
+  echo "usage: build-bullet <subcommand>"
   echo
   echo "Available subcommands are:"
   echo "   init     Start your project."
@@ -22,8 +21,8 @@ main() {
     exit 1
   fi
 
-    # load common functionality
-    . "$KAFFE_DIR/kaffe-common"
+  # load common functionality
+  . "$KAFFE_DIR/build-common"
 
   # Get the sub command.
   SUBCOMMAND="$1"; shift

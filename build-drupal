@@ -50,11 +50,11 @@ do_make() {
   cp "$KAFFE_DIR/resources/kaffe.make" .
 
   # Run the make file this once like God intended make files to be run.
-  drush make kaffe.make .
+  drush make preload.make .
   echo "Downloaded basic modules."
 
   # Remove make file after use.
-  rm kaffe.make
+  rm preload.make
 
   # Get Drupal version number so we can download a translation.
   drupal_version=$(grep --max-count=1 Drupal CHANGELOG.txt | sed 's/Drupal\ \([0-9]\.[0-9]*\).*$/\1/')
