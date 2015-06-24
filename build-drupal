@@ -195,11 +195,32 @@ site_install() {
     echo "Database url cannot be empty."
   fi
 
+  # Get username for user 1.
+  clear
+  echo "What should be the username for user 1?"
+  read account_name
+
+  if [ -z "$account_name" ]
+  then
+    account_name='admin'
+    echo "User 1 name set to $account_name. Cannot be empty."
+  fi
+
+  # Get password for user 1.
+  clear
+  echo "What should be the password for user 1?"
+  read account_pass
+
+  if [ -z "$account_pass" ]
+  then
+    account_pass='admin'
+    echo "User 1 password set to $account_pass. Cannot be empty."
+  fi
 
   # Now install the site.
-  drush site-install minimal --locale=da --site-name="$site_name" --account-mail="$site_mail" --account-name="$KAFFE_D_USER" --account-pass="$KAFFE_D_PWD" --db-url="$db_url"
-
   clear
+  drush site-install minimal --locale=da --site-name="$site_name" --account-mail="$site_mail" --account-name="$account_name" --account-pass="$account_pass" --db-url="$db_url"
+
   # Get the shorthand of the custom modules.
   echo "\n"
   echo "What will be the shorthand for your custom modules? "

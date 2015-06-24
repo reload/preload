@@ -4,7 +4,3 @@ if [ -r ~/.preload-build ];
 then
   . ~/.preload-build
 fi
-
-# Username and password for user 1. High security is key ;-).
-export KAFFE_D_USER='reload'
-export KAFFE_D_PWD='reload!'
