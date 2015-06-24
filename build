@@ -6,12 +6,10 @@ usage() {
   echo "usage: build-bullet <subcommand>"
   echo
   echo "Available subcommands are:"
-  echo "   init     Start your project."
-  echo "   install  Installs site."
+  echo "   drupal   Start your project."
   echo "   theme    Create an initial theme."
-  echo "   content  Install content modules."
   echo
-  echo "Try 'kaffe <subcommand> help' for details."
+  echo "Try 'build <subcommand> help' for details."
 }
 
 main() {
@@ -28,13 +26,13 @@ main() {
   SUBCOMMAND="$1"; shift
 
   # If we don't have the command, then display usage.
-  if [ ! -e "$PRELOAD_DIR/kaffe-$SUBCOMMAND" ]; then
+  if [ ! -e "$PRELOAD_DIR/build-$SUBCOMMAND" ]; then
     usage
     exit 1
   fi
 
   # Run file
-  . "$PRELOAD_DIR/kaffe-$SUBCOMMAND"
+  . "$PRELOAD_DIR/build-$SUBCOMMAND"
 
 
   SUBACTION="default"
