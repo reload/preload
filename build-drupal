@@ -187,7 +187,7 @@ site_install() {
 
   echo "\$conf['site_name'] = '$site_name';" >> sites/default/common.settings.php
 
-  echo 'Now enter the url to your database (fx. mysql://username:pass@localhost:3306/kaffe): '
+  echo 'Now enter the url to your database (fx. mysql://username:pass@localhost:3306/pReload): '
   read db_url
 
   if [ -z "$db_url" ]
