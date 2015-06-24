@@ -1,7 +1,7 @@
 ; Mac files.
 .DS_Store
 
-; Lav Kaffe project.
-lav/
-; Translations downloaded by Lav Kaffe.
+; pReload project.
+preload/
+; Translations downloaded by pReload.
 profiles/minimal/translations/
