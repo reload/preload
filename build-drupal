@@ -150,7 +150,6 @@ apply_patches() {
 
 site_install() {
   clear
-  echo "\n"
   echo '         __   __  ____      _                 _   _  __   __'
   echo '        / /  / / |  _ \ ___| | ___   __ _  __| | | | \ \  \ \'
   echo '       / /  / /  | |_) / _ \ |/ _ \ / _` |/ _` | | |  \ \  \ \'
@@ -175,6 +174,8 @@ site_install() {
     echo "Site name set to $site_name. Cannot be empty."
   fi
 
+  # Get admin email.
+  clear
   echo "Insert your admin email address:"
     read site_mail
 
@@ -184,10 +185,11 @@ site_install() {
       echo "The email is sent to $site_mail."
     fi
 
-
   echo "\$conf['site_name'] = '$site_name';" >> sites/default/common.settings.php
 
-  echo 'Now enter the url to your database (fx. mysql://username:pass@localhost:3306/pReload): '
+  # Get database url.
+  clear
+  echo 'Insert the url to your database (fx. mysql://username:pass@localhost:3306/pReload): '
   read db_url
 
   if [ -z "$db_url" ]
@@ -197,7 +199,7 @@ site_install() {
 
   # Get username for user 1.
   clear
-  echo "What should be the username for user 1?"
+  echo "Insert username for user 1."
   read account_name
 
   if [ -z "$account_name" ]
@@ -208,7 +210,7 @@ site_install() {
 
   # Get password for user 1.
   clear
-  echo "What should be the password for user 1?"
+  echo "Insert password for user 1."
   read account_pass
 
   if [ -z "$account_pass" ]
@@ -217,12 +219,12 @@ site_install() {
     echo "User 1 password set to $account_pass. Cannot be empty."
   fi
 
-  # Now install the site.
+  # Execute drush site-install.
   clear
   drush site-install minimal --locale=da --site-name="$site_name" --account-mail="$site_mail" --account-name="$account_name" --account-pass="$account_pass" --db-url="$db_url"
 
   # Get the shorthand of the custom modules.
-  echo "\n"
+  clear
   echo "What will be the shorthand for your custom modules? "
   read module_shorthand
 
@@ -231,8 +233,8 @@ site_install() {
     echo "You have to supply a shorthand for custom modules."
   fi
 
+  # Ask for Google Analytics.
   clear
-  echo "\n"
   echo "If you wanna use Google Analytics please provide your key now\n(UA-xxxxxxx-yy): "
   read ga_key
 
@@ -244,8 +246,8 @@ site_install() {
     drush vset googleanalytics_account "$ga_key"
   fi
 
+  # Development modules?
   clear
-  echo "\n"
   echo "Do you wish to install Development related tools such as devel, stage_file_proxy, diff, etc.:"
   while true; do
     read -p "Choose yes or no (y/n): " yn
@@ -256,8 +258,8 @@ site_install() {
     esac
   done
 
+  # PHP Cache?
   clear
-  echo "\n"
   echo "Please select your type of PHP Cache \n1. OPcache\n2. APC"
   read -p "Please select: " spam
     case $spam in
@@ -266,8 +268,8 @@ site_install() {
       * ) echo "No PHP Cache selected";;
     esac
 
+  # Spam protection?
   clear
-  echo "\n"
   echo "Please select your type of spam protection \n1. Mollom\n2. Captcha/reCaptcha\n3. Honeypot"
   read -p "Please select: " spam
     case $spam in
@@ -316,7 +318,6 @@ move_custom_modules() {
 
 enable_custom_modules() {
   clear
-  echo "\n"
   echo "Do you want to use a preconfigured article content type?"
   while true; do
     read -p "Choose yes or no (y/n): " yn
@@ -330,9 +331,10 @@ enable_custom_modules() {
 
 enable_modules() {
   # Clear before running the enable scripts, so the user doesn't think this is
-  # a part of the last question they answered.
+  # a part of the last question they answered and provide information About
+  # what is about to happen (enable modules).
   clear
-  echo "\n"
+  echo "Enabling modules"
   # Enable core modules we want.
   drush en -y block contextual image list menu number options path taxonomy dblog toolbar field_ui file rdf
   # Enable admin theme.
@@ -353,15 +355,16 @@ drush_scripts_post() {
   # Run some code via drush.
   drush en -y $module_shorthand"_editor"
   drush secure-permissions-rebuild
+
+  # Editor user.
   clear
-    echo "\n"
-    echo "Do you want an editor user to be created (user:editor / pass:editor)?"
-    while true; do
-      read -p "Choose yes or no (y/n): " yn
-      case $yn in
-        [Yy]* ) drush scr "$PRELOAD_DIR/resources/scripts/create_default_editor_user.drush.php";break;;
-        [Nn]* ) break;;
-        * ) echo "Please answer yes or no (y/n)";;
-      esac
-    done
+  echo "Do you want an editor user to be created (user:editor / pass:editor)?"
+  while true; do
+    read -p "Choose yes or no (y/n): " yn
+    case $yn in
+      [Yy]* ) drush scr "$PRELOAD_DIR/resources/scripts/create_default_editor_user.drush.php";break;;
+      [Nn]* ) break;;
+      * ) echo "Please answer yes or no (y/n)";;
+    esac
+  done
 }
