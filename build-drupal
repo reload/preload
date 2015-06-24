@@ -47,7 +47,7 @@ get_web_server_group() {
 
 do_make() {
   # Copy the make file to the drupal-to-be root.
-  cp "$KAFFE_DIR/resources/kaffe.make" .
+  cp "$PRELOAD_DIR/resources/kaffe.make" .
 
   # Run the make file this once like God intended make files to be run.
   drush make preload.make .
@@ -82,8 +82,8 @@ EOF
   cp sites/default/default.settings.php sites/default/settings.php
 
   # Copy our settings files.
-  cp "$KAFFE_DIR/resources/settings/common.settings.php" sites/default/
-  cp "$KAFFE_DIR/resources/settings/dev.settings.php" sites/default/
+  cp "$PRELOAD_DIR/resources/settings/common.settings.php" sites/default/
+  cp "$PRELOAD_DIR/resources/settings/dev.settings.php" sites/default/
   echo "Copied initial settings."
 }
 
@@ -98,13 +98,13 @@ setup_files_dir_and_rights() {
 }
 
 copy_conf_files() {
-  cp "$KAFFE_DIR/resources/circle/circle.yml" .
-  cat "$KAFFE_DIR/resources/git/gitignore" >> .gitignore
-  cp "$KAFFE_DIR/resources/scrutinizer/.scrutinizer.yml" .scrutinizer.yml
+  cp "$PRELOAD_DIR/resources/circle/circle.yml" .
+  cat "$PRELOAD_DIR/resources/git/gitignore" >> .gitignore
+  cp "$PRELOAD_DIR/resources/scrutinizer/.scrutinizer.yml" .scrutinizer.yml
 }
 
 copy_modules() {
-  cp -r "$KAFFE_DIR/resources/modules/custom" sites/all/modules/
+  cp -r "$PRELOAD_DIR/resources/modules/custom" sites/all/modules/
   # If there is a variable in the ~/.lav-kaffe pointing to a local folder with
   # modules, then symlink to that. Useful for devel, stage_file_proxy,
   # honeybadger, or bad_judgement.
@@ -259,8 +259,8 @@ site_install() {
 
 drush_scripts() {
   # Run some code via drush.
-  drush scr "$KAFFE_DIR/resources/scripts/user_roles.drush.php"
-  drush scr "$KAFFE_DIR/resources/scripts/vars.drush.php"
+  drush scr "$PRELOAD_DIR/resources/scripts/user_roles.drush.php"
+  drush scr "$PRELOAD_DIR/resources/scripts/vars.drush.php"
 }
 
 move_custom_modules() {
@@ -338,7 +338,7 @@ drush_scripts_post() {
     while true; do
       read -p "Choose yes or no (y/n): " yn
       case $yn in
-        [Yy]* ) drush scr "$KAFFE_DIR/resources/scripts/create_default_editor_user.drush.php";break;;
+        [Yy]* ) drush scr "$PRELOAD_DIR/resources/scripts/create_default_editor_user.drush.php";break;;
         [Nn]* ) break;;
         * ) echo "Please answer yes or no (y/n)";;
       esac

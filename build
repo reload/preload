@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export KAFFE_DIR=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+export PRELOAD_DIR=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
 
 usage() {
   echo "usage: build-bullet <subcommand>"
@@ -22,19 +22,19 @@ main() {
   fi
 
   # load common functionality
-  . "$KAFFE_DIR/build-common"
+  . "$PRELOAD_DIR/build-common"
 
   # Get the sub command.
   SUBCOMMAND="$1"; shift
 
   # If we don't have the command, then display usage.
-  if [ ! -e "$KAFFE_DIR/kaffe-$SUBCOMMAND" ]; then
+  if [ ! -e "$PRELOAD_DIR/kaffe-$SUBCOMMAND" ]; then
     usage
     exit 1
   fi
 
   # Run file
-  . "$KAFFE_DIR/kaffe-$SUBCOMMAND"
+  . "$PRELOAD_DIR/kaffe-$SUBCOMMAND"
 
 
   SUBACTION="default"
