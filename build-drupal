@@ -1,0 +1,370 @@
+#!/bin/bash
+
+cmd_default() {
+  get_web_server_group
+  do_make
+  write_settings_files
+  setup_files_dir_and_rights
+  copy_conf_files
+  copy_modules
+  apply_patches
+  site_install
+  drush_scripts
+  move_custom_modules
+  enable_custom_modules
+  enable_modules
+  drush_scripts_post
+}
+
+get_web_server_group() {
+  # Get the web server group.
+  # If the group name is not in the settings file, then ask for the group.
+  if [ -z "$webserver_group" ]
+  then
+    # First let us try to look up the group name.
+    webserver_group=$(apachectl -S 2> /dev/null | grep -E ^Group | sed -e 's/.*name="\([^"]*\)".*/\1/'; test "${PIPESTATUS[1]}" -eq 0)
+    if [ "$?" -ne "0" ]; then
+      case $( uname -s ) in
+        # Mac? Probably _www
+        Darwin) webserver_group='_www';;
+        # Other? Hmm. Try this.
+        *)     webserver_group='www-data';;
+      esac
+    fi
+
+    while true; do
+        read -p "Is the name of your web server group $webserver_group? " yn
+        case $yn in
+            [Yy]* ) break;;
+            [Nn]* ) echo "Please enter the name of the web server group on this machine: ";read webserver_group;break;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+    # Save the web server group to the settings file.
+    echo "webserver_group=$webserver_group" >> ~/.preload-build
+  fi
+}
+
+do_make() {
+  # Copy the make file to the drupal-to-be root.
+  cp "$PRELOAD_DIR/resources/preload.make" .
+
+  # Run the make file this once like God intended make files to be run.
+  drush make preload.make .
+  echo "Downloaded basic modules."
+
+  # Remove make file after use.
+  rm preload.make
+
+  # Get Drupal version number so we can download a translation.
+  drupal_version=$(grep --max-count=1 Drupal CHANGELOG.txt | sed 's/Drupal\ \([0-9]\.[0-9]*\).*$/\1/')
+  # Now download it.
+  curl "http://ftp.drupal.org/files/translations/7.x/drupal/drupal-${drupal_version}.da.po" -o "profiles/minimal/translations/drupal-${drupal_version}.da.po"
+  echo "Downloaded translations."
+}
+
+write_settings_files() {
+  # Do some file juggling to prepend inclusion of our settings files to the
+  # default.settings.php. The reason we don't just write to settings.php is that
+  # when drupal is installed the file will be overwritten with
+  # default.settings.php
+  cat <<- EOF > temp.txt
+<?php
+
+// Include our settings. Comment out dev on relevant platforms, but always leave
+// common.
+require_once('common.settings.php');
+require_once('dev.settings.php');
+EOF
+  tail -n +2 sites/default/default.settings.php >> temp.txt
+  cp temp.txt sites/default/default.settings.php
+  rm temp.txt
+  cp sites/default/default.settings.php sites/default/settings.php
+
+  # Copy our settings files.
+  cp "$PRELOAD_DIR/resources/settings/common.settings.php" sites/default/
+  cp "$PRELOAD_DIR/resources/settings/dev.settings.php" sites/default/
+  echo "Copied initial settings."
+}
+
+setup_files_dir_and_rights() {
+  # Make the files directory.
+  mkdir -p sites/default/files
+  # Set file rights.
+  echo "About to set ownership on sites/default using sudo."
+  sudo chown -R  "$(whoami):$webserver_group" sites/default
+  chmod -R g+rw sites/default
+  echo "Set up files folder and file rights."
+}
+
+copy_conf_files() {
+  cp "$PRELOAD_DIR/resources/circle/circle.yml" .
+  cat "$PRELOAD_DIR/resources/git/gitignore" >> .gitignore
+  cp "$PRELOAD_DIR/resources/scrutinizer/.scrutinizer.yml" .scrutinizer.yml
+}
+
+copy_modules() {
+  cp -r "$PRELOAD_DIR/resources/modules/custom" sites/all/modules/
+  # If there is a variable in the ~/.preload-build pointing to a local folder with
+  # modules, then symlink to that. Useful for devel, stage_file_proxy,
+  # honeybadger, or bad_judgement.
+  if [ ! -z "$localmodules" ]
+  then
+    # Use ZZ prefix so that the modules in the folder are loaded last. The
+    # modules are loaded alphabetically if not specifically weighted.
+    ln -s "$localmodules" sites/all/modules/contrib/ZZ_SHARED_MODULES
+  fi
+}
+
+apply_patches() {
+  drush bandaid-patch \
+  --home=https://www.drupal.org/node/2188491 \
+  --reason="Fix duplicate roles bug" \
+  https://www.drupal.org/files/issues/2188491-features-multilingual-2.patch \
+  sites/all/modules/contrib/secure_permissions
+
+  drush bandaid-patch \
+  --home=https://www.drupal.org/node/1744274 \
+  --reason="Fix duplicate roles bug" \
+  https://www.drupal.org/files/secure_permissions-duplicate_role_exception-1744274-4.patch \
+  sites/all/modules/contrib/secure_permissions
+
+  drush bandaid-patch \
+  --home=https://www.drupal.org/node/1853550 \
+  --reason="Add support for CKEditor 4" \
+  https://www.drupal.org/files/wysiwyg-ckeditor-4.1853550.172-do-not-test.patch \
+  sites/all/modules/contrib/wysiwyg
+
+  drush bandaid-patch \
+  --home=https://www.drupal.org/node/1802394 \
+  --reason="Avoid \"Warning: file_get_contents from 7.x-2.1 to 7.x-2.2\"" \
+  https://www.drupal.org/files/wysiwyg-1802394-4.patch \
+  sites/all/modules/contrib/wysiwyg
+
+  drush bandaid-patch \
+  --home=https://www.drupal.org/node/2477835 \
+  --reason="Release link an type for recommended release" \
+  https://www.drupal.org/files/issues/update_rules-release_link_for_recommended_release-2477835-6.patch \
+  sites/all/modules/contrib/update_rules
+}
+
+site_install() {
+  clear
+  echo '         __   __  ____      _                 _   _  __   __'
+  echo '        / /  / / |  _ \ ___| | ___   __ _  __| | | | \ \  \ \'
+  echo '       / /  / /  | |_) / _ \ |/ _ \ / _` |/ _` | | |  \ \  \ \'
+  echo '       \ \  \ \  |  _ <  __/ | (_) | (_| | (_| | |_|  / /  / /'
+  echo '        \_\  \_\ |_| \_\___|_|\___/ \__,_|\__,_| (_) /_/  /_/'
+  echo '         _ _                 _           _        _ _'
+  echo '     ___(_) |_ ___          (_)_ __  ___| |_ __ _| | | ___ _ __'
+  echo '    / __| | __/ _ \  _____  | | `_ \/ __| __/ _` | | |/ _ \ `__|'
+  echo '    \__ \ | ||  __/ |_____| | | | | \__ \ || (_| | | |  __/ |'
+  echo '    |___/_|\__\___|         |_|_| |_|___/\__\__,_|_|_|\___|_|'
+  echo '     _   _   _   _   _   _   _   _   _   _   _   _   _   _   _'
+  echo '    (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_)'
+  echo '\n'
+
+  # Get the name of the site.
+  echo "What is the site name?"
+  read site_name
+
+  if [ -z "$site_name" ]
+  then
+    site_name='default'
+    echo "Site name set to $site_name. Cannot be empty."
+  fi
+
+  # Get admin email.
+  clear
+  echo "Insert your admin email address:"
+    read site_mail
+
+    if [ -z "$site_mail" ]
+    then
+      site_mail='info+siteinstall@reload.dk'
+      echo "The email is sent to $site_mail."
+    fi
+
+  echo "\$conf['site_name'] = '$site_name';" >> sites/default/common.settings.php
+
+  # Get database url.
+  clear
+  echo 'Insert the url to your database (fx. mysql://username:pass@localhost:3306/pReload): '
+  read db_url
+
+  if [ -z "$db_url" ]
+  then
+    echo "Database url cannot be empty."
+  fi
+
+  # Get username for user 1.
+  clear
+  echo "Insert username for user 1."
+  read account_name
+
+  if [ -z "$account_name" ]
+  then
+    account_name='admin'
+    echo "User 1 name set to $account_name. Cannot be empty."
+  fi
+
+  # Get password for user 1.
+  clear
+  echo "Insert password for user 1."
+  read account_pass
+
+  if [ -z "$account_pass" ]
+  then
+    account_pass='admin'
+    echo "User 1 password set to $account_pass. Cannot be empty."
+  fi
+
+  # Execute drush site-install.
+  clear
+  drush site-install minimal --locale=da --site-name="$site_name" --account-mail="$site_mail" --account-name="$account_name" --account-pass="$account_pass" --db-url="$db_url"
+
+  # Get the shorthand of the custom modules.
+  clear
+  echo "What will be the shorthand for your custom modules? "
+  read module_shorthand
+
+  if [ -z "$module_shorthand" ]
+  then
+    echo "You have to supply a shorthand for custom modules."
+  fi
+
+  # Ask for Google Analytics.
+  clear
+  echo "If you wanna use Google Analytics please provide your key now\n(UA-xxxxxxx-yy): "
+  read ga_key
+
+  if [ -z "$ga_key" ]
+  then
+    echo "Remember to configure it later on"
+  else
+    drush dl -y google_analytics && drush en -y googleanalytics
+    drush vset googleanalytics_account "$ga_key"
+  fi
+
+  # Development modules?
+  clear
+  echo "Do you wish to install Development related tools such as devel, stage_file_proxy, diff, etc.:"
+  while true; do
+    read -p "Choose yes or no (y/n): " yn
+    case $yn in
+      [Yy]* ) drush en -y devel diff stage_file_proxy module_filter;break;;
+      [Nn]* ) echo "Alrighty then!";break;;
+      * ) echo "Please answer yes or no (y/n)";;
+    esac
+  done
+
+  # PHP Cache?
+  clear
+  echo "Please select your type of PHP Cache \n1. OPcache\n2. APC"
+  read -p "Please select: " spam
+    case $spam in
+      [1]* ) drush dl -y opcache && drush en -y opcache;break;;
+      [2]* ) drush dl -y apc && drush en -y apc;break;;
+      * ) echo "No PHP Cache selected";;
+    esac
+
+  # Spam protection?
+  clear
+  echo "Please select your type of spam protection \n1. Mollom\n2. Captcha/reCaptcha\n3. Honeypot"
+  read -p "Please select: " spam
+    case $spam in
+      [1]* ) drush dl -y mollom && drush en -y mollom;break;;
+      [2]* ) drush dl -y captcha recaptcha && drush en -y captcha recaptcha;break;;
+      [3]* ) drush dl -y honeypot && drush en -y honeypot;break;;
+      * ) echo "No spam protection selected";;
+    esac
+}
+
+drush_scripts() {
+  # Run some code via drush.
+  drush scr "$PRELOAD_DIR/resources/scripts/user_roles.drush.php"
+  drush scr "$PRELOAD_DIR/resources/scripts/vars.drush.php"
+}
+
+move_custom_modules() {
+  # Define the module placeholder to be replaced.
+  module_placeholder="MODULESHORTHAND"
+
+  # Rename custom modules.
+  for dir in $(find "sites/all/modules/custom"); do
+    if [[ -d $dir ]]; then
+      if [[ $(basename "$dir") == *$module_placeholder* ]]; then
+        tmp_name=${dir##*/}
+        mv $dir ${dir%$tmp_name}$module_shorthand${tmp_name#$module_placeholder}
+      fi
+    fi
+  done
+
+  # Rename files and replace placeholders inside.
+  for file in $(find "sites/all/modules/custom"); do
+    if [[ -f $file ]]; then
+      if [[ $(basename "$file") == *$module_placeholder* ]]; then
+        # Files with the module placeholder in the file
+        # content get it replaced.
+        perl -pi -e "s,$module_placeholder,$module_shorthand,g" "$file"
+
+        # Rename the file.
+        tmp_name=${file##*/}
+        mv $file ${file%$tmp_name}$module_shorthand${tmp_name#$module_placeholder}
+      fi
+    fi
+  done
+}
+
+enable_custom_modules() {
+  clear
+  echo "Do you want to use a preconfigured article content type?"
+  while true; do
+    read -p "Choose yes or no (y/n): " yn
+    case $yn in
+      [Yy]* ) drush en -y $module_shorthand"_article";break;;
+      [Nn]* ) break;;
+      * ) echo "Please answer yes or no (y/n)";;
+    esac
+  done
+}
+
+enable_modules() {
+  # Clear before running the enable scripts, so the user doesn't think this is
+  # a part of the last question they answered and provide information About
+  # what is about to happen (enable modules).
+  clear
+  echo "Enabling modules"
+  # Enable core modules we want.
+  drush en -y block contextual image list menu number options path taxonomy dblog toolbar field_ui file rdf
+  # Enable admin theme.
+  drush en -y seven
+  # Get rid of silly blocks for seven
+  drush sql-query "UPDATE block SET region = '-1' WHERE theme = 'seven' AND delta IN('login', 'navigation', 'management')"
+  # Enable contrib modules - do it in several rounds to avoid timeouts.
+  drush dis -y toolbar && drush en -y admin_menu_toolbar
+  drush en -y jquery_update media wysiwyg linkit pathologic chosen scheduler link smart_trim page_manager
+  drush en -y ctools admin_views date entity entityreference environment_indicator features field_group globalredirect
+  drush en -y i18n l10n_update libraries pathauto strongarm token transliteration views views_bulk_operations xmlsitemap_node xmlsitemap_taxonomy
+  drush en -y manualcrop watchdog_filtering file_resup ultimate_cron elements html5_tools placeholder telephone email fences
+  # Enable our own custom stuff.
+  drush en -y $module_shorthand"_f5" $module_shorthand"_media" reload_jira_update
+}
+
+drush_scripts_post() {
+  # Run some code via drush.
+  drush en -y $module_shorthand"_editor"
+  drush secure-permissions-rebuild
+
+  # Editor user.
+  clear
+  echo "Do you want an editor user to be created (user:editor / pass:editor)?"
+  while true; do
+    read -p "Choose yes or no (y/n): " yn
+    case $yn in
+      [Yy]* ) drush scr "$PRELOAD_DIR/resources/scripts/create_default_editor_user.drush.php";break;;
+      [Nn]* ) break;;
+      * ) echo "Please answer yes or no (y/n)";;
+    esac
+  done
+}
