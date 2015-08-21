@@ -144,7 +144,7 @@ apply_patches() {
   drush bandaid-patch \
   --home=https://www.drupal.org/node/2477835 \
   --reason="Release link an type for recommended release" \
-  https://www.drupal.org/files/issues/update_rules-release_link_for_recommended_release-2477835-6.patch \
+  https://www.drupal.org/files/issues/update_rules-release_link_for_recommended_release-2477835-11.patch \
   sites/all/modules/contrib/update_rules
 }
 
