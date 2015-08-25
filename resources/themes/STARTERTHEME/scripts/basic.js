@@ -1,8 +1,16 @@
+/**
+ * @file
+ */
 (function ($) {
-  // Drupal behaviours go here.
+  'use strict';
+
+  /**
+   * Drupal behaviours go here.
+   */
   Drupal.behaviors.STARTERTHEMETodo = {
     attach: function (context, settings) {
-      // TODO.
+      // Code goes here...
     }
   };
+
 })(jQuery);
