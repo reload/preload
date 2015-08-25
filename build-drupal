@@ -101,6 +101,7 @@ copy_conf_files() {
   cp "$PRELOAD_DIR/resources/circle/circle.yml" .
   cat "$PRELOAD_DIR/resources/git/gitignore" >> .gitignore
   cp "$PRELOAD_DIR/resources/scrutinizer/.scrutinizer.yml" .scrutinizer.yml
+  cp -R "$PRELOAD_DIR/resources/private" .
 }
 
 copy_modules() {
@@ -144,7 +145,7 @@ apply_patches() {
   drush bandaid-patch \
   --home=https://www.drupal.org/node/2477835 \
   --reason="Release link an type for recommended release" \
-  https://www.drupal.org/files/issues/update_rules-release_link_for_recommended_release-2477835-11.patch \
+  https://www.drupal.org/files/issues/update_rules-release_link_for_recommended_release-2477835-6.patch \
   sites/all/modules/contrib/update_rules
 }
 
