@@ -1,6 +1,8 @@
 /**
  * @file
+ * An awesome description of your basic JavaScript file goes here.
  */
+ 
 (function ($) {
   'use strict';
 
