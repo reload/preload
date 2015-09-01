@@ -53,9 +53,9 @@ Inside all of the directories (representing a different category) there is also 
 |–– theme
    |–– _button.scss
    |–– _pager.scss
-|–– theme.base.scss
-|–– theme.components.scss
-|–– theme.layout.scss
-|–– theme.state.scss
-|–– theme.theme.scss
+|–– base.scss
+|–– components.scss
+|–– layout.scss
+|–– state.scss
+|–– theme.scss
 ```
