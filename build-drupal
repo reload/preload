@@ -141,12 +141,6 @@ apply_patches() {
   --reason="Avoid \"Warning: file_get_contents from 7.x-2.1 to 7.x-2.2\"" \
   https://www.drupal.org/files/wysiwyg-1802394-4.patch \
   sites/all/modules/contrib/wysiwyg
-
-  drush bandaid-patch \
-  --home=https://www.drupal.org/node/2477835 \
-  --reason="Release link an type for recommended release" \
-  https://www.drupal.org/files/issues/update_rules-release_link_for_recommended_release-2477835-6.patch \
-  sites/all/modules/contrib/update_rules
 }
 
 site_install() {
