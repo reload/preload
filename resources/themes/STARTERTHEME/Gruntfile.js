@@ -13,7 +13,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: 'sass',
-          src: '**/*.scss',
+          src: '*.scss',
           dest: 'css',
           rename: function (dest, src) {
             var filename = src.substring(src.lastIndexOf('/'), src.length);
