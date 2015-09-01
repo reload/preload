@@ -1,8 +1,18 @@
+/**
+ * @file
+ * An awesome description of your basic JavaScript file goes here.
+ */
+ 
 (function ($) {
-  // Drupal behaviours go here.
+  'use strict';
+
+  /**
+   * Drupal behaviours go here.
+   */
   Drupal.behaviors.STARTERTHEMETodo = {
     attach: function (context, settings) {
-      // TODO.
+      // Code goes here...
     }
   };
+
 })(jQuery);
