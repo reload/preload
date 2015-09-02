@@ -13,10 +13,13 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: 'sass',
-          src: ['*.scss', '**/*.scss'],
+          src: '*.scss',
           dest: 'css',
-          ext: '.css',
-          extDot: 'last'
+          rename: function (dest, src) {
+            var filename = src.substring(src.lastIndexOf('/'), src.length);
+            filename = filename.substring(0, filename.lastIndexOf('.'));
+            return dest + '/STARTERTHEME.' + filename + '.css';
+          }
         }],
         options: {
           includePaths: require('node-bourbon').includePaths
