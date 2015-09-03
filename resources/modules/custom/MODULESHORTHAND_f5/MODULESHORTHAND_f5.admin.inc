@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Admin area for Reload! F5 module.
+ * Admin area for the F5 module.
  */
 
 /**
