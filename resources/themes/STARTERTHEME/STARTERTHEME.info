@@ -3,7 +3,7 @@ description = TODO
 core = 7.x
 
 stylesheets[all][] = css/STARTERTHEME.base.css
-stylesheets[all][] = css/STARTERTHEME.components.css
+stylesheets[all][] = css/STARTERTHEME.component.css
 stylesheets[all][] = css/STARTERTHEME.layout.css
 stylesheets[all][] = css/STARTERTHEME.state.css
 stylesheets[all][] = css/STARTERTHEME.theme.css
