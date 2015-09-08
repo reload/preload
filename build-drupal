@@ -9,6 +9,7 @@ cmd_default() {
   copy_modules
   apply_patches
   site_install
+  move_drush_misc
   drush_scripts
   move_custom_modules
   enable_custom_modules
@@ -273,6 +274,13 @@ site_install() {
       [3]* ) drush dl -y honeypot && drush en -y honeypot;break;;
       * ) echo "No spam protection selected";;
     esac
+}
+
+move_drush_misc() {
+  # Copy drush files and directories.
+  cp -r "$PRELOAD_DIR/resources/drush/" sites/all/drush/
+  # Replace placeholder-names with user defined shorthand.
+  replace_placeholders "sites/all/drush"
 }
 
 drush_scripts() {
