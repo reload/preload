@@ -1,4 +1,4 @@
-name = Editor
+name = Site editor
 description = Secure permissions for roles
 core = 7.x
 package = MODULESHORTHAND

@@ -1,4 +1,4 @@
-name = Article
+name = Site article
 description = A basic article type
 core = 7.x
 package = MODULESHORTHAND

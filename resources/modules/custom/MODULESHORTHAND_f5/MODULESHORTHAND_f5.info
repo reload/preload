@@ -1,4 +1,4 @@
-name = F5
+name = Site general settings (F5)
 description = Base module for the site.
 core = 7.x
 package = MODULESHORTHAND
