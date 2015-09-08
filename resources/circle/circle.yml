@@ -13,7 +13,7 @@ dependencies:
     - composer --prefer-source --no-interaction global require drush/drush:6.2.0
     - mkdir ~/.drush
     - drush dl drush_drake
-    - cd ~/.drush && drush dl coder
+    - cd ~/.drush && drush dl coder-7.x-2.5
     - git clone git@github.com:reload/drake_ci.git ~/.drush/drake_ci
     # Install csslint.
     - npm install -g csslint
