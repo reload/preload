@@ -49,4 +49,8 @@ module.exports = function (grunt) {
     'sass',
     'watch'
   ]);
+
+  grunt.registerTask('build', [
+    'sass'
+  ]);
 };
