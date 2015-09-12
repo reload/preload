@@ -1,9 +1,9 @@
 <?php
+
 /**
  * @file
  * Generic module with code that is often reused across sites.
  */
-
 
 include_once 'MODULESHORTHAND_f5.features.inc';
 
