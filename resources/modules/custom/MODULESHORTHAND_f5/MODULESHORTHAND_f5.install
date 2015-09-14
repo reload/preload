@@ -10,11 +10,16 @@
  */
 function MODULESHORTHAND_f5_install() {
 
-  $role = new stdClass();
-  $role->name = 'editor';
-  user_role_save($role);
-
   $editor_role = user_role_load_by_name('editor');
+
+  // Create the 'editor' role if does not exist.
+  if (!$editor_role) {
+    $role = new stdClass();
+    $role->name = 'editor';
+    user_role_save($role);
+
+    $editor_role = user_role_load_by_name('editor');
+  }
 
   // Add text formats.
   $filtered_html_format = array(
