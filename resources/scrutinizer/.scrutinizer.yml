@@ -37,6 +37,9 @@ tools:
       - theme
       - php
   js_hint: true
+build_failure_conditions:
+  # No new coding style issues allowed.
+  - 'issues.label("coding-style").new.exists'
 before_commands:
   # Remove core files - no need to analyse that.
   - "rm -r includes misc modules scripts themes"
