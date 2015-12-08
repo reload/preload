@@ -101,6 +101,7 @@ copy_conf_files() {
   cp "$PRELOAD_DIR/resources/circle/circle.yml" .
   cat "$PRELOAD_DIR/resources/git/gitignore" >> .gitignore
   cp "$PRELOAD_DIR/resources/scrutinizer/.scrutinizer.yml" .scrutinizer.yml
+  cp "$PRELOAD_DIR/resources/scrutinizer/.eslintrc" .eslintrc
   cp -R "$PRELOAD_DIR/resources/private" .
 }
 

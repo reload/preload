@@ -37,7 +37,8 @@ tools:
       - profile
       - theme
       - php
-  js_hint: true
+  eslint:
+    use_native_config: true
 build_failure_conditions:
   # No new issues allowed.
   - 'issues.new.exists'
@@ -60,3 +61,5 @@ before_commands:
   - "find . -name '*.tpl.php' -delete"
   # Remove generated code, we don't want to analyze that.
   - "find . '(' -name '*.features.*' -or -name '*.feeds_importer_default.inc' -or -name '*.field_group.inc' -or -name '*.layouts.inc' -or -name '*.pages_default.inc' -or -name '*.panels_default.inc' -or -name '*.panelizer.inc' -or -name '*.strongarm.inc' -or -name '*.views_default.inc' -or -name '*.ultimate_cron.inc' -or -name '*.rules_defaults.inc' -or -name '*.file_default_displays.inc' -or -name '*.linkit_profiles.inc' ')' -delete"
+  # Remove node.js modules.
+  - "find . -name node_modules -type d -exec rm -rf {} \;"
