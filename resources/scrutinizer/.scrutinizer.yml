@@ -43,6 +43,8 @@ build_failure_conditions:
   # No new issues allowed.
   - 'issues.new.exists'
 before_commands:
+  # Install an up-to-date eslint.
+  - 'cd /usr/share/scrutinizer && npm install eslint'
   # Remove core files - no need to analyse that.
   - "rm -r includes misc modules scripts themes"
   - "rm -r profiles/minimal profiles/standard profiles/testing"
