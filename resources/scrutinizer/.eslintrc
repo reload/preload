@@ -6,8 +6,6 @@
   "globals": {
     "Drupal": true,
     "jQuery": true,
-    "matchMedia": true,
-    "Modernizr": true,
     "CKEDITOR": true
   },
   "rules": {
