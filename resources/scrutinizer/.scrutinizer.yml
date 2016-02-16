@@ -10,15 +10,6 @@ tools:
       - theme
     config:
       standard: Drupal
-  php_cpd:
-    names:
-      - '*.module'
-      - '*.inc'
-      - '*.install'
-      - '*.test'
-      - '*.profile'
-      - '*.theme'
-      - '*.php'
   php_loc:
     names:
       - '*.module'
