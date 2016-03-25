@@ -1,7 +1,7 @@
-name = Article
+name = Site article
 description = A basic article type
 core = 7.x
-package = Reload
+package = MODULESHORTHAND
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = file_entity

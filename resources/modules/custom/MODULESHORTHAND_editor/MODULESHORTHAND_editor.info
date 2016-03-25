@@ -1,7 +1,7 @@
-name = Editor
+name = Site editor
 description = Secure permissions for roles
 core = 7.x
-package = Reload
+package = MODULESHORTHAND
 dependencies[] = ctools
 dependencies[] = secure_permissions
 dependencies[] = strongarm

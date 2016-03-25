@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Code for the Reload Media feature.
+ * Code for the Media feature.
  */
 
 include_once 'MODULESHORTHAND_media.features.inc';

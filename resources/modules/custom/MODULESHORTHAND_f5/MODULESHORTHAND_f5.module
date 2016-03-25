@@ -21,34 +21,34 @@ function MODULESHORTHAND_f5_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  $items['admin/config/reload'] = array(
-    'title' => 'Reload!',
-    'description' => 'Reload! settings and tools.',
+  $items['admin/config/preload'] = array(
+    'title' => 'F5',
+    'description' => 'F5 settings and tools.',
     'position' => 'right',
     'weight' => -20,
     'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('access reload tools'),
+    'access arguments' => array('access f5 tools'),
     'file' => 'system.admin.inc',
     'file path' => drupal_get_path('module', 'system'),
   );
 
-  $items['admin/config/reload/f5'] = array(
+  $items['admin/config/preload/f5'] = array(
     'title' => 'F5 tools',
-    'access arguments' => array('access reload tools'),
+    'access arguments' => array('access f5 tools'),
     'page callback' => 'MODULESHORTHAND_f5_view_settings_variables',
     'file' => 'MODULESHORTHAND_f5.admin.inc',
   );
 
-  $items['admin/config/reload/f5/settings-files'] = array(
+  $items['admin/config/preload/f5/settings-files'] = array(
     'title' => 'Setting files variables',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -1,
     'file' => 'MODULESHORTHAND_f5.admin.inc',
   );
 
-  $items['admin/config/reload/f5/variable-overrides'] = array(
+  $items['admin/config/preload/f5/variable-overrides'] = array(
     'title' => 'Overridden variables',
-    'access arguments' => array('access reload tools'),
+    'access arguments' => array('access f5 tools'),
     'page callback' => 'MODULESHORTHAND_f5_overridden_variables_view',
     'type' => MENU_LOCAL_TASK,
     'file' => 'MODULESHORTHAND_f5.admin.inc',
@@ -62,9 +62,9 @@ function MODULESHORTHAND_f5_menu() {
  */
 function MODULESHORTHAND_f5_permission() {
   return array(
-    'access reload tools' => array(
-      'title' => t('Access reload tools'),
-      'description' => t('Access to the Reload! tools area, but some tools may not be available'),
+    'access f5 tools' => array(
+      'title' => t('Access f5 tools'),
+      'description' => t('Access to the F5 tools area, but some tools may not be available'),
     ),
   );
 }
