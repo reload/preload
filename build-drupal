@@ -9,6 +9,7 @@ cmd_default() {
   copy_modules
   apply_patches
   site_install
+  move_drush_misc
   drush_scripts
   move_custom_modules
   enable_custom_modules
@@ -276,6 +277,13 @@ site_install() {
     esac
 }
 
+move_drush_misc() {
+  # Copy drush files and directories.
+  cp -r "$PRELOAD_DIR/resources/drush/" sites/all/drush/
+  # Replace placeholder-names with user defined shorthand.
+  replace_placeholders "sites/all/drush"
+}
+
 drush_scripts() {
   # Run some code via drush.
   drush scr "$PRELOAD_DIR/resources/scripts/user_roles.drush.php"
@@ -283,33 +291,8 @@ drush_scripts() {
 }
 
 move_custom_modules() {
-  # Define the module placeholder to be replaced.
-  module_placeholder="MODULESHORTHAND"
-
-  # Rename custom modules.
-  for dir in $(find "sites/all/modules/custom"); do
-    if [[ -d $dir ]]; then
-      if [[ $(basename "$dir") == *$module_placeholder* ]]; then
-        tmp_name=${dir##*/}
-        mv $dir ${dir%$tmp_name}$module_shorthand${tmp_name#$module_placeholder}
-      fi
-    fi
-  done
-
-  # Rename files and replace placeholders inside.
-  for file in $(find "sites/all/modules/custom"); do
-    if [[ -f $file ]]; then
-      if [[ $(basename "$file") == *$module_placeholder* ]]; then
-        # Files with the module placeholder in the file
-        # content get it replaced.
-        perl -pi -e "s,$module_placeholder,$module_shorthand,g" "$file"
-
-        # Rename the file.
-        tmp_name=${file##*/}
-        mv $file ${file%$tmp_name}$module_shorthand${tmp_name#$module_placeholder}
-      fi
-    fi
-  done
+  # Replace placeholder-names with user defined shorthand.
+  replace_placeholders "sites/all/modules/custom"
 }
 
 enable_custom_modules() {
@@ -362,5 +345,35 @@ drush_scripts_post() {
       [Nn]* ) break;;
       * ) echo "Please answer yes or no (y/n)";;
     esac
+  done
+}
+
+replace_placeholders() {
+  # Define the placeholder text to be replaced.
+  module_placeholder="MODULESHORTHAND"
+
+  # Rename custom drush plugins.
+  for dir in $(find "$1"); do
+    if [[ -d $dir ]]; then
+      if [[ $(basename "$dir") == *$module_placeholder* ]]; then
+        tmp_name=${dir##*/}
+        mv $dir ${dir%$tmp_name}$module_shorthand${tmp_name#$module_placeholder}
+      fi
+    fi
+  done
+
+  # Rename files and replace placeholders inside.
+  for file in $(find "$1"); do
+    if [[ -f $file ]]; then
+      if [[ $(basename "$file") == *$module_placeholder* ]]; then
+        # Files with the module placeholder in the file
+        # content get it replaced.
+        perl -pi -e "s,$module_placeholder,$module_shorthand,g" "$file"
+
+        # Rename the file.
+        tmp_name=${file##*/}
+        mv $file ${file%$tmp_name}$module_shorthand${tmp_name#$module_placeholder}
+      fi
+    fi
   done
 }
